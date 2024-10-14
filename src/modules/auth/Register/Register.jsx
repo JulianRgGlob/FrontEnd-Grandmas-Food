@@ -13,7 +13,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import validationForm from "../../../common/validation";
+import validationForm from "../../../utils/validation/validation";
 
 const Register = () => {
   const [showPassword, setShowPassword] = React.useState(false);
