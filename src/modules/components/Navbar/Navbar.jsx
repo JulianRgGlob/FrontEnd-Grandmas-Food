@@ -3,8 +3,8 @@ import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router-dom";
-import { StyledBoxNav, ImageLogoNav, StyledIconButton, StyledMenu, StyledBoxPageNav, StyledBoxUser, StyledIconButtonCart } from "./Navbar.style";
-
+import { StyledBoxNav, StyledIconButton, StyledMenu, StyledBoxPageNav, StyledBoxUser, StyledBoxNavImg } from "./Navbar.style";
+import StyledIconButtonCart from './NavbarCar'
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -29,7 +29,7 @@ function Navbar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ImageLogoNav src="src\assets\GFD.webp" alt="Logo" />
+          <StyledBoxNavImg component='img' src="src\assets\GFD.webp" alt="Logo" />
           <StyledBoxNav>
             <StyledIconButton onClick={handleOpenNavMenu}></StyledIconButton>
             <StyledMenu anchorEl={anchorElNav}

@@ -3,6 +3,7 @@ import "./App.css";
 import Homes from "../Pages/Home";
 import Login from "../auth/Login/Login";
 import Register from "../auth/Register/Register";
+import DetailCar from "../Pages/DetailCar";
 import ProtectedRoutes from "../auth/ProtectedRoutes";
 import ResetPassword from "../auth/ResetPassword";
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/" element={<Homes />} />
+            <Route path="/detailCar" element={<DetailCar/>} />
           </Route>
           <Route path="/forgotPass" element={<ResetPassword />} />
         </Routes>

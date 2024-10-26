@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import { pagesNav, settingsNav } from "./NavabarConst";
 const StyledBoxNavImg = styled(Box)`
@@ -25,9 +24,11 @@ const StyledBoxNavImg = styled(Box)`
     width: 40px;
   }
 `;
+
 const ImageLogoNav = ({ src, alt }) => {
   return <StyledBoxNavImg component="img" src={src} alt={alt} />;
 };
+
 const StyledBoxNav = styled(Box)`
   flex-grow: 1;
   display: flex;
@@ -97,15 +98,7 @@ const StyledBoxPageNav = ({ onClick }) => {
     </Box>
   );
 };
-const StyledIconButtonCart = () => {
-  return (
-    <IconButton>
-      <AddShoppingCartIcon
-        sx={{ display: { xs: "flex", md: "flex" }, mr: 1 }}
-      />
-    </IconButton>
-  );
-};
+
 const StyledBoxUser = ({ onClickO, anchorEl, open, onClose, onClickC }) => {
   return (
     <Box sx={{ flexGrow: 0 }}>
@@ -145,6 +138,6 @@ export {
   StyledIconButton,
   StyledMenu,
   StyledBoxPageNav,
-  StyledIconButtonCart,
   StyledBoxUser,
+  StyledBoxNavImg,
 };
