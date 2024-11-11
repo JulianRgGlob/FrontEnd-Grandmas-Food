@@ -6,20 +6,23 @@ import Register from "../auth/Register/Register";
 import DetailCar from "../Pages/DetailCar";
 import ProtectedRoutes from "../auth/ProtectedRoutes";
 import ResetPassword from "../auth/ResetPassword";
+import Layout from "../Pages/Layout";
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route element={<ProtectedRoutes />}>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgotPass" element={<ResetPassword />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route element={<Layout />}>
             <Route path="/" element={<Homes />} />
-            <Route path="/detailCar" element={<DetailCar/>} />
+            <Route path="/detailCar" element={<DetailCar />} />
           </Route>
-          <Route path="/forgotPass" element={<ResetPassword />} />
-        </Routes>
-      </BrowserRouter>
+        </Route>
+      </Routes>
+    </BrowserRouter>
     </>
   );
 }

@@ -1,50 +1,62 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import validationForm from "../../../utils/validation/validation";
-
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import FormControl from '@mui/material/FormControl'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Typography from '@mui/material/Typography'
+import Link from '@mui/material/Link'
+import validationForm from '../../../utils/validation/validation'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setEmail,
+  setPassword,
+  setShowPassword,
+  setErrors,
+  setErrorMessage,
+  clearErrors,
+} from '../../../stores/authSlice'
 const Login = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
-  const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const dispatch = useDispatch()
+  const email = useSelector((state) => state.auth.email)
+  const passwords = useSelector((state) => state.auth.passwords)
+  const showPassword = useSelector((state) => state.auth.showPassword)
+  const errors = useSelector((state) => state.auth.errors)
+  const errorMessage = useSelector((state) => state.auth.errorMessage)
+  const navigate = useNavigate()
+  const handleClickShowPassword = () => dispatch(setShowPassword())
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const { errors, isValid } = validationForm(null, email, password);
-    setErrors(errors);
-    console.log("click");
+    event.preventDefault()
+    dispatch(clearErrors())
+    const { errors: validationErrors, isValid } = validationForm(
+      null,
+      email,
+      passwords
+    )
+    dispatch(setErrors(validationErrors))
+    console.log('click')
     if (isValid) {
-      <div style={{ color: "red", marginTop: "5px" }}>{"User Not Found"}</div>;
-      const loggedUser = JSON.parse(localStorage.getItem("user"))
+      const loggedUser = JSON.parse(localStorage.getItem('user'))
       console.log(loggedUser)
-      console.log(loggedUser.email);
-      console.log(loggedUser.password);
-      if (email === loggedUser.email && password === loggedUser.password) {
-        localStorage.setItem("loggedin",true)
-        navigate("/");
+      console.log(loggedUser.email)
+      console.log(loggedUser.passwords)
+      if (email === loggedUser.email && passwords === loggedUser.passwords) {
+        localStorage.setItem('loggedin', true)
+        navigate('/')
       } else {
-        setErrorMessage("Incorrect Credentials")
+        dispatch(setErrorMessage('Incorrect Credentials'))
       }
-    }else{
-  
-      setErrorMessage("User not found")
+    } else {
+      dispatch(setErrorMessage('User not found'))
     }
-  };
+  }
   return (
     <div>
       <Container maxWidth="sm">
@@ -53,7 +65,7 @@ const Login = () => {
         </Typography>
         <Box
           component="form"
-          sx={{ width: 500, maxWidth: "100%" }}
+          sx={{ width: 500, maxWidth: '100%' }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -70,8 +82,8 @@ const Login = () => {
               label="Email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value);
-                setErrors({ ...errors, email: "" }); 
+                dispatch(setEmail(e.target.value))
+                dispatch(setErrors({ ...errors, email: '' }))
               }}
               margin="normal"
               placeholder="user@email.com"
@@ -91,11 +103,11 @@ const Login = () => {
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
-              type={showPassword ? "text" : "password"}
-              value={password}
+              type={showPassword ? 'text' : 'password'}
+              value={passwords}
               onChange={(e) => {
-                setPassword(e.target.value);
-                setErrors({ ...errors, password: "" }); 
+                dispatch(setPassword(e.target.value))
+                dispatch(setErrors({ ...errors, password: '' }))
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -110,23 +122,23 @@ const Login = () => {
               }
               label="Password"
             />
-            {errors.password && (
-              <div style={{ color: "red", marginTop: "5px" }}>
+            {errors.passwords && (
+              <div style={{ color: 'red', marginTop: '5px' }}>
                 {errors.password}
               </div>
             )}
           </FormControl>
 
           {errorMessage && (
-            <div style={{ color: "red", marginTop: "5px" }}>{errorMessage}</div>
+            <div style={{ color: 'red', marginTop: '5px' }}>{errorMessage}</div>
           )}
           <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
             Login
           </Button>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
+              display: 'flex',
+              justifyContent: 'space-between',
             }}
           >
             <Link href="/forgotPass" variant="body2" margin="normal">
@@ -142,7 +154,7 @@ const Login = () => {
         </Box>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

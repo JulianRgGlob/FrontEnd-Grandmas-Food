@@ -2,7 +2,11 @@ import React from 'react'
 
 function DetailCar() {
   return (
-    <div>DetailCar</div>
+    <div style={{    
+      padding: "1.25rem",
+    }}>
+      Detail Car
+    </div>
   )
 }
 

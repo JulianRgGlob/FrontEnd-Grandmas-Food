@@ -75,7 +75,6 @@ const ProductsApi = () => {
   const getProducts = async () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log("Mocked API response: ", mockProducts);
         resolve(mockProducts);
       }, 1000);
     });

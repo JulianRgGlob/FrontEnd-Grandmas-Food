@@ -1,26 +1,23 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect} from "react";
 import StyledModalBoxCard from "./ModalCard.style";
 import Button from "@mui/material/Button";
 import { Modal, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../stores/cart";
+import { useDispatch,useSelector } from "react-redux";
+import { addToCart,setQuantity } from "../../../stores/cartSlice";
 
 function ModalCard({ open, handleClose, selectedProduct }) {
-  const [quantity, setQuantity] = useState(1);
+  const quantity = useSelector((state) => state.cart.quantity)
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   if (open) {
-
-  //     setQuantity(1);
-  //     console.log("quantity" ,quantity);
-      
-  //   }
-  // }, [open, selectedProduct]);
+  useEffect(() => {
+    if (open) {
+      dispatch(setQuantity(1)); 
+    }
+  }, [open, dispatch]);
   const handleMinusQuantity = () => {
-    setQuantity(quantity - 1 < 1 ? 1 : quantity - 1);
+    dispatch(setQuantity(quantity - 1 < 1 ? 1 : quantity - 1))
   };
   const handlePlusQuantity = () => {
-    setQuantity(quantity + 1);
+    dispatch(setQuantity(quantity + 1))
   };
   const handleAddToCart = (product) => {
     dispatch(addToCart({

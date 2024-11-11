@@ -33,6 +33,12 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'return' }, // Línea en blanco antes del return
+        { blankLine: 'always', prev: 'const', next: 'let' }, // Línea en blanco entre constantes
+        { blankLine: 'always', prev: 'let', next: 'const' }, // Línea en blanco entre let y const
+      ],
     },
   },
 ]

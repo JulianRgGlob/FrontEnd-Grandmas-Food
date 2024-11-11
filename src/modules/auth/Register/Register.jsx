@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -14,24 +14,37 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import validationForm from "../../../utils/validation/validation";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEmail,
+  setPassword,
+  setShowPassword,
+  setErrors,
+  setNickName,
+} from "../../../stores/authSlice";
 
 const Register = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
-  const [name, setName] = useState("");
-const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.auth.email);
+  const passwords = useSelector((state) => state.auth.passwords);
+  const showPassword = useSelector((state) => state.auth.showPassword);
+  const errors = useSelector((state) => state.auth.errors);
+  const name = useSelector((state) => state.auth.nickName);
+  const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleSubmit = (event) => {
     event.preventDefault();
-    const {errors, isValid } = validationForm(name,email, password, true);
-    setErrors(errors);
+    const { errors: validationErrors, isValid } = validationForm(
+      name,
+      email,
+      passwords,
+      true
+    );
+    dispatch(setErrors(validationErrors));
     if (isValid) {
-        localStorage.setItem("user", JSON.stringify({name,email,password}))
-        navigate("/login")
-      console.log("Data Register:", { email, password, name });
+      localStorage.setItem("user", JSON.stringify({ name, email, passwords }));
+      navigate("/login");
+      console.log("Data Register:", { email, passwords, name });
     }
   };
   return (
@@ -47,18 +60,23 @@ const navigate = useNavigate()
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.name}>
+          <FormControl
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            error={!!errors.name}
+          >
             <TextField
               required
               label="Name"
               value={name}
               onChange={(e) => {
-                setName(e.target.value);
-                setErrors({ ...errors, name: "" });
+                dispatch(setNickName(e.target.value));
+                dispatch(setErrors({ ...errors, name: "" }));
               }}
               placeholder="Jhon Doe"
               error={!!errors.name}
-              helperText={errors.name} 
+              helperText={errors.name}
             />
           </FormControl>
           <FormControl
@@ -72,12 +90,12 @@ const navigate = useNavigate()
               label="Email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value);
-                setErrors({ ...errors, email: "" });
+                dispatch(setEmail(e.target.value));
+                dispatch(setErrors({ ...errors, name: "" }));
               }}
               placeholder="user@email.com"
               error={!!errors.email}
-              helperText={errors.email} 
+              helperText={errors.email}
             />
           </FormControl>
 
@@ -93,10 +111,10 @@ const navigate = useNavigate()
             <OutlinedInput
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}
-              value={password}
+              value={passwords}
               onChange={(e) => {
-                setPassword(e.target.value);
-                setErrors({ ...errors, password: "" }); 
+                dispatch(setPassword(e.target.value));
+                dispatch(setErrors({ ...errors, password: "" }));
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -125,7 +143,7 @@ const navigate = useNavigate()
             sx={{
               display: "flex",
               justifyContent: "center",
-              marginTop:"10px"
+              marginTop: "10px",
             }}
           >
             <Link href="/login" variant="body2">

@@ -8,8 +8,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
-
 import { pagesNav, settingsNav } from "./NavabarConst";
+import { useNavigate } from "react-router-dom";
 const StyledBoxNavImg = styled(Box)`
   margin-right: 8px;
   @media (max-width: 600px) {
@@ -57,6 +57,15 @@ const StyledIconButton = (props) => {
 };
 
 const StyledMenu = ({ anchorEl, open, onClose }) => {
+  const navigate = useNavigate();
+
+    const handleMenuItemClick = (page) => {
+        if (page === 'Carrito') {
+          "estoy aca"
+            navigate('/detailCar'); 
+        }
+        onClose(); 
+    };
   return (
     <Menu
       id="menu-appbar"
@@ -75,7 +84,7 @@ const StyledMenu = ({ anchorEl, open, onClose }) => {
       sx={{ display: { xs: "block", md: "none" } }}
     >
       {pagesNav.map((page) => (
-        <MenuItem key={page} onClick={onClose}>
+        <MenuItem key={page} onClick={() => handleMenuItemClick(page)}>
           <Typography sx={{ textAlign: "center" }}>{page}</Typography>
         </MenuItem>
       ))}
@@ -84,12 +93,22 @@ const StyledMenu = ({ anchorEl, open, onClose }) => {
 };
 
 const StyledBoxPageNav = ({ onClick }) => {
+  const navigate = useNavigate();
+
+    const handleMenuItemClick = (page) => {
+        if (page === 'Carrito') {
+            navigate('/detailCar'); 
+          }else if(page === 'Products'){
+            navigate('/'); 
+        }
+        onClick(); 
+    };
   return (
     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
       {pagesNav.map((page) => (
         <Button
           key={page}
-          onClick={onClick}
+          onClick={() => handleMenuItemClick(page)}
           sx={{ my: 2, color: "white", display: "block" }}
         >
           {page}
