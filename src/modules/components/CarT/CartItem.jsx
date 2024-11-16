@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeQuanity } from '../../../stores/cartSlice'
 import { setDetail } from '../../../stores/detailCartItemsSlice'
+import { CartItemButtom } from './CartItemButtom'
 
 function CartItem(props) {
   const dispatch = useDispatch()
@@ -84,31 +85,9 @@ function CartItem(props) {
               gap: '0.1rem',
             }}
           >
-            <button
-              style={{
-                backgroundColor: 'white',
-                borderRadius: '2px',
-                width: '1.25rem',
-                height: '1.5rem',
-                color: '#0e7490',
-              }}
-              onClick={handleMinusQuantity}
-            >
-              -
-            </button>
+            <CartItemButtom value={handleMinusQuantity} text="-"/>
             <p style={{ margin: '4px' }}>Quantity:{quantity}</p>
-            <button
-              style={{
-                backgroundColor: 'white',
-                borderRadius: '2px',
-                width: '1.25rem',
-                height: '1.5rem',
-                color: '#0e7490',
-              }}
-              onClick={handlePlusQuantity}
-            >
-              +
-            </button>
+            <CartItemButtom value={handlePlusQuantity} text="+" />
           </div>
         </>
       ) : (

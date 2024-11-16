@@ -1,14 +1,13 @@
-import { Box, CardMedia } from "@mui/material";
-import styled from "styled-components";
+import { Box, CardMedia } from '@mui/material'
+import styled from 'styled-components'
 
 const StyledBoxCard = styled(Box)`
-    padding: 2;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  padding: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 `
 const StyledCardMediaImg = styled(CardMedia)`
-  height: 200px;
-  width: 400px;
-`;
-export {StyledBoxCard,StyledCardMediaImg}
+  height: 400px;
+`
+export { StyledBoxCard, StyledCardMediaImg }

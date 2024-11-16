@@ -38,7 +38,7 @@ function Navbar() {
   }
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="x1">
         <Toolbar disableGutters>
           <StyledBoxNavImg
             component="img"
