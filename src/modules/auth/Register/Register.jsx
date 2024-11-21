@@ -10,7 +10,12 @@ import FormEmail from '../forms/FormEmail'
 import { FormPassword } from '../forms/FormPassword'
 import { FormName } from '../forms/FormName'
 import { useDispatch, useSelector } from 'react-redux'
-import { setShowPassword, setErrors } from '../../../stores/authSlice'
+import {
+  setShowPassword,
+  setErrors,
+  setHashPassword,
+} from '../../../stores/authSlice'
+import bcrypt from 'bcryptjs'
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -21,7 +26,7 @@ const Register = () => {
   const name = useSelector((state) => state.auth.nickName)
   const navigate = useNavigate()
   const handleClickShowPassword = () => setShowPassword((show) => !show)
-  
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const { errors: validationErrors, isValid } = validationForm(
@@ -32,11 +37,15 @@ const Register = () => {
     )
     dispatch(setErrors(validationErrors))
     if (isValid) {
-      localStorage.setItem('user', JSON.stringify({ name, email, passwords }))
+      const hash = bcrypt.hashSync(passwords, 10)
+      dispatch(setHashPassword(hash))
+      console.log('Hash Password:', hash)
+      localStorage.setItem('user', JSON.stringify({ name, email, hash }))
       navigate('/login')
-      console.log('Data Register:', { email, passwords, name })
+      console.log('Data Register:', { email, hash, name })
     }
   }
+
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" component="h1" gutterBottom>
@@ -57,7 +66,11 @@ const Register = () => {
           passwords={passwords}
           handleClickShowPassword={handleClickShowPassword}
         />
-        <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ marginTop: 2 }}
+        >
           Register
         </Button>
         <Box

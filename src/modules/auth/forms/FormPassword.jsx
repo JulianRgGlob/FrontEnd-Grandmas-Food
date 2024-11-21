@@ -7,12 +7,12 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { useDispatch } from 'react-redux'
-import { setPassword, setErrors } from '../../../stores/authSlice'
+import { setPassword, setErrors} from '../../../stores/authSlice'
 
 export const FormPassword = ({errors,showPassword,passwords,handleClickShowPassword}) => {
 
   const dispatch = useDispatch()
-
+  
   return (
     <FormControl
       fullWidth

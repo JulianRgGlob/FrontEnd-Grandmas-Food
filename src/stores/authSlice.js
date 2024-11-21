@@ -1,45 +1,58 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  passwords: "",
-  email: "",
+  passwords: '',
+  email: '',
   showPassword: false,
   errors: {
-    errorEmail: "",
-    errorPasword: "",
+    errorEmail: '',
+    errorPasword: '',
   },
-  errorMessage: "",
-  nickName:"",
-};
+  errorMessage: '',
+  nickName: '',
+  hashPassword: '',
+}
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setEmail(state, action) {
-      state.email = action.payload;
+      state.email = action.payload
     },
     setPassword(state, action) {
-      state.passwords = action.payload;
+      state.passwords = action.payload
     },
     setShowPassword(state) {
-      state.showPassword = !state.showPassword;
+      state.showPassword = !state.showPassword
     },
     setErrors(state, action) {
-      state.errors = action.payload;
+      state.errors = action.payload
     },
     setErrorMessage(state, action) {
-      state.errorMessage = action.payload;
+      state.errorMessage = action.payload
     },
     clearErrors(state) {
-      state.errors = { email: "", password: "" };
-      state.errorMessage = "";
+      state.errors = { email: '', password: '' }
+      state.errorMessage = ''
     },
-    setNickName(state,action){
+    setNickName(state, action) {
       state.nickName = action.payload
-    }
+    },
+    setHashPassword(state, action) {
+      state.hashPassword = action.payload
+    },
   },
-});
+})
 
-export const {setEmail,setPassword,setShowPassword,setErrors,setErrorMessage,clearErrors,setNickName} = authSlice.actions
+export const {
+  setEmail,
+  setPassword,
+  setShowPassword,
+  setErrors,
+  setErrorMessage,
+  clearErrors,
+  setNickName,
+  setHashPassword,
+} = authSlice.actions
 export default authSlice.reducer

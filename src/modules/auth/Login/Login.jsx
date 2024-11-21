@@ -15,6 +15,7 @@ import {
   setErrorMessage,
   clearErrors,
 } from '../../../stores/authSlice'
+import bcrypt from 'bcryptjs'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -37,10 +38,12 @@ const Login = () => {
     console.log('click')
     if (isValid) {
       const loggedUser = JSON.parse(localStorage.getItem('user'))
-      console.log(loggedUser)
+      console.log(loggedUser.name)
       console.log(loggedUser.email)
-      console.log(loggedUser.passwords)
-      if (email === loggedUser.email && passwords === loggedUser.passwords) {
+      console.log(loggedUser.hash)
+      const isMatch = bcrypt.compareSync(passwords, loggedUser.hash);
+      console.log("ismatach",isMatch)
+      if (email === loggedUser.email && isMatch) {
         localStorage.setItem('loggedin', true)
         navigate('/')
       } else {
