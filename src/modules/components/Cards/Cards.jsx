@@ -10,7 +10,7 @@ import { StyledCardMediaImg } from './CadMenu.style'
 import Typography from '@mui/material/Typography'
 import { addToCart } from '../../../stores/cartSlice'
 import { setSelectProduct } from '../../../stores/productsSlice'
-import {useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export const Cards = ({ product, images }) => {
   const dispatch = useDispatch()
@@ -29,9 +29,9 @@ export const Cards = ({ product, images }) => {
     dispatch(setOpen(true))
     dispatch(setSelectProduct(product))
   }
-  
+
   return (
-    <Card sx={{ maxWidth: 350, margin: 1 }}>
+    <Card sx={{ width: 250, margin: 1 }}>
       <CardActionArea>
         <CardContent>
           <StyledCardMediaImg

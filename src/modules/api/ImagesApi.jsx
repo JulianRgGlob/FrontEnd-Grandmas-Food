@@ -3,7 +3,7 @@ function ImagesApi() {
   const Access_Key = import.meta.env.VITE_UNSPLASH_ACCES_KEY;
   const getImage = async (imgName) => {
     try {
-      const url = `https://api.unsplash.com/search/photos?page=1&query=${imgName}&per_page=1&client_id=${Access_Key}`;
+      const url = `https://api.unsplash.com/search/photos?page=1&query=${imgName}&per_page=1&client_id=${Access_Key}&orientation=portrait`;
       const response = await axios.get(url);
       return response.data.results;
       

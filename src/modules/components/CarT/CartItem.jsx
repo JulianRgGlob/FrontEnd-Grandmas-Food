@@ -76,7 +76,7 @@ function CartItem(props) {
       {detail ? (
         <>
           <Typography variant="button">{detail.fantasyName}</Typography>
-          <p> Price: ${detail.price * quantity}</p>
+          <p> Price: ${detail.price.toFixed(2) * quantity.toFixed(2)}</p>
           <div
             style={{
               display: 'flex',
