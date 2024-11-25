@@ -5,15 +5,15 @@ const StyledBoxCard = styled(Box)`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 16px; /* Espaciado uniforme entre tarjetas */
-  padding: 16px; /* Espaciado alrededor del contenedor */
+  gap: 16px; 
+  padding: 16px;
 `
 
 const StyledCardMediaImg = styled(CardMedia)`
-  width: 100%; /* Ocupa todo el ancho del contenedor */
-  height: 200px; /* Altura fija */
-  object-fit: cover; /* Ajusta la imagen recortándola */
-  object-position: center; /* Centra la imagen en caso de recorte */
+  width: 100%;
+  height: 200px; 
+  object-fit: cover; 
+  object-position: center;
 `
 
 export { StyledBoxCard, StyledCardMediaImg }

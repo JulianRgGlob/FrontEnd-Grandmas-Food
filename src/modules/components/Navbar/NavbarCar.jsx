@@ -30,7 +30,7 @@ const StyledIconButtonCart = () => {
       onClick={handleOpenTabCart}
     >
       <AddShoppingCartIcon
-        sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}
+        sx={{ display: { xs: 'flex', md: 'flex' }, mr: 2 }}
       />
       <span
         style={{

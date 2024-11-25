@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { changeQuanity } from '../../../stores/cartSlice'
 import { setDetail } from '../../../stores/detailCartItemsSlice'
 import { CartItemButtom } from './CartItemButtom'
+import { StyledDivCart } from './Cart.style'
 
 function CartItem(props) {
   const dispatch = useDispatch()
@@ -54,21 +55,10 @@ function CartItem(props) {
     )
   }
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: 'rgba(128, 128, 128, 0.226)',
-        boxShadow: '5px 5px 5px 0px rgba(5, 5, 5, 0.164)',
-        margin: '5px',
-        padding: '10px',
-        borderRadius: '5px',
-      }}
-    >
+    <StyledDivCart>
       {productImage && (
         <img
-          style={{ width: '50px' }}
+          style={{ width: '50px', height: '50px' }}
           src={productImage}
           alt={detail ? detail.fantasyName : ''}
         />
@@ -93,7 +83,7 @@ function CartItem(props) {
       ) : (
         <p>Loading product details...</p>
       )}
-    </div>
+    </StyledDivCart>
   )
 }
 

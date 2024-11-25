@@ -74,7 +74,7 @@ const ProductsApi = () => {
       id: 7,
       productUuid: "550e8400-e29b-41d4-a716-446655440006",
       category: "PASTA",
-      fantasyName: "SPAGHETTI_BOLOGNESE",
+      fantasyName: "SPAGHETTI",
       description: "Classic spaghetti with a rich bolognese sauce.",
       price: 8.99,
       is_available: true,
