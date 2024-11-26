@@ -8,7 +8,7 @@ import CartItem from './CartItem';
 import { toggleStatusTab } from '../../../stores/cartSlice';
 import { useNavigate } from 'react-router-dom';
 
-function CartDrawer() {
+function CarT() {
   const navigate = useNavigate();
   const statusTab = useSelector((store) => store.cart.statusTab);
   const carts = useSelector((store) => store.cart.items);
@@ -16,7 +16,9 @@ function CartDrawer() {
   const dispatch = useDispatch();
 
   const handleToggleDrawer = () => {
+    console.log('click close');
     dispatch(toggleStatusTab());
+    console.log("togle",toggleStatusTab.type);
   };
 
   const cartContent = (
@@ -67,4 +69,4 @@ function CartDrawer() {
   );
 }
 
-export default CartDrawer;
+export default CarT;

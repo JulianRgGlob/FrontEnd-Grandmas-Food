@@ -3,7 +3,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import IconButton from '@mui/material/IconButton'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleStatusTab, setTotalQuantity } from '../../../stores/cartSlice'
-
+import CarT from '../CarT/CarT'
 const StyledIconButtonCart = () => {
   const dispatch = useDispatch()
   const totalQuantity = useSelector((store) => store.cart.totalQuantity)
@@ -50,6 +50,7 @@ const StyledIconButtonCart = () => {
       >
         {totalQuantity}
       </span>
+      <CarT/>
     </IconButton>
   )
 }

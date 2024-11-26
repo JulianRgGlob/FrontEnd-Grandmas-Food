@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <CardMenu />
-      <CarT />
+      {/* <CarT /> */}
     </>
   );
 }
