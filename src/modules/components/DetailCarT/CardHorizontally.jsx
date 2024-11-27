@@ -17,7 +17,6 @@ export const CardHorizontally = () => {
       <Card
         sx={{
           display: 'flex',
-          // backgroundColor: 'blue',
           justifyContent: 'space-between',
           width: '60%',
           marginRight: '10px',
@@ -29,7 +28,7 @@ export const CardHorizontally = () => {
           ))}
         </div>
       </Card>
-      <CardPayment sx={{ backgroundColor: 'gray',height:'100%' }} />
+      <CardPayment sx={{height:'100%' }} />
     </div>
   )
 }
