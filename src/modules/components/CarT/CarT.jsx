@@ -1,25 +1,24 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useSelector, useDispatch } from 'react-redux';
-import CartItem from './CartItem';
-import { toggleStatusTab } from '../../../stores/cartSlice';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { useSelector, useDispatch } from 'react-redux'
+import CartItem from './CartItem'
+import { toggleStatusTab } from '../../../stores/cartSlice'
+import { useNavigate } from 'react-router-dom'
 
 function CarT() {
-  const navigate = useNavigate();
-  const statusTab = useSelector((store) => store.cart.statusTab);
-  const carts = useSelector((store) => store.cart.items);
-  const products = useSelector((store) => store.products.products);
-  const dispatch = useDispatch();
-  console.log('statusTab', statusTab);
+  
+  const navigate = useNavigate()
+  const statusTab = useSelector((store) => store.cart.statusTab)
+  const carts = useSelector((store) => store.cart.items)
+  const products = useSelector((store) => store.products.products)
+  const dispatch = useDispatch()
+
   const handleToggleDrawer = () => {
-    console.log('click close');
-    dispatch(toggleStatusTab());
-    // console.log("togle",dispatch(toggleStatusTab()));
-  };
+    dispatch(toggleStatusTab())
+  }
 
   const cartContent = (
     <Box
@@ -32,7 +31,7 @@ function CarT() {
       }}
       role="presentation"
       onKeyDown={(e) => {
-        if (e.key === 'Tab' || e.key === 'Shift') return;
+        if (e.key === 'Tab' || e.key === 'Shift') return
       }}
     >
       <Typography
@@ -58,15 +57,13 @@ function CarT() {
         <Button onClick={() => navigate('/detailCar')}>CHECKOUT</Button>
       </div>
     </Box>
-  );
+  )
 
   return (
-    <>
-      <Drawer anchor="right" open={statusTab} onClose={handleToggleDrawer}>
-        {cartContent}
-      </Drawer>
-    </>
-  );
+    <Drawer anchor="right" open={statusTab} onClose={handleToggleDrawer}>
+      {cartContent}
+    </Drawer>
+  )
 }
 
-export default CarT;
+export default CarT

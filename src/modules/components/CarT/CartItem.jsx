@@ -16,6 +16,7 @@ function CartItem(props) {
   console.log(products)
   const detail = useSelector((store) => store.detail.detail[productId])
   const images = useSelector((store) => store.images.images)
+  const total = detail ? detail.price * quantity : 0
 
   console.log('detail', detail)
 
@@ -58,26 +59,52 @@ function CartItem(props) {
     <StyledDivCart>
       {productImage && (
         <img
-          style={{ width: '50px', height: '50px' }}
+          style={{ width: '50px', height: '50px', objectFit: 'cover' }}
           src={productImage}
           alt={detail ? detail.fantasyName : ''}
         />
       )}
       {detail ? (
         <>
-          <Typography variant="button">{detail.fantasyName}</Typography>
-          <p> Price: ${detail.price.toFixed(2) * quantity.toFixed(2)}</p>
           <div
             style={{
               display: 'flex',
+              flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-              gap: '0.1rem',
+              flex: 1,
+              padding: '0.5rem',
+              width: '100%',
             }}
           >
-            <CartItemButtom value={handleMinusQuantity} text="-"/>
-            <p style={{ margin: '4px' }}>Quantity:{quantity}</p>
-            <CartItemButtom value={handlePlusQuantity} text="+" />
+            <div style={{ flex: 2, display: 'flex', flexDirection: 'column' }}>
+              <Typography variant="button" style={{ marginBottom: '0.5rem' }}>
+                {detail.fantasyName}
+              </Typography>
+              <p style={{ marginBottom: '0.5rem' }}>
+                Price: ${total.toFixed(2)}
+              </p>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '0.3rem',
+                flex: 1,
+              }}
+            >
+              <CartItemButtom value={handleMinusQuantity} text="-" />
+              <div
+            style={{
+              width: '70%', // Ancho fijo para la cantidad
+              textAlign: 'center',
+            }}
+          >
+            <p style={{ margin: '4px' }}> Quantity {quantity}</p>
+          </div>
+              <CartItemButtom value={handlePlusQuantity} text="+" />
+            </div>
           </div>
         </>
       ) : (

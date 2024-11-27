@@ -6,7 +6,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
-import { TextField } from '@mui/material'
+import { TextField, Typography } from '@mui/material'
 export const CardPayment = (name) => {
   return (
     <div
@@ -14,10 +14,12 @@ export const CardPayment = (name) => {
         backgroundColor: 'gray',
         borderRadius: '4px',
         width: '35%',
-        height: '230px',
+        marginTop: '20px',
+        marginBottom: '20px',
+        height: '800px',
       }}
     >
-      Card Details
+      <Typography variant="h4" sx={{textAlign:'center'}}>Card Details</Typography>
       <Box
         component="form"
         sx={{ '& > :not(style)': { m: 1 } }}
