@@ -14,6 +14,7 @@ import {
 import StyledIconButtonCart from './NavbarCar'
 import { setAnchorElNav, setAnchorElUser } from '../../../stores/navbarSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import CarT from '../CarT/CarT'
 
 function Navbar() {
   const dispatch = useDispatch()
@@ -63,6 +64,7 @@ function Navbar() {
           />
         </Toolbar>
       </Container>
+      <CarT />
     </AppBar>
   )
 }

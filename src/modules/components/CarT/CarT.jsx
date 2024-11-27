@@ -14,11 +14,11 @@ function CarT() {
   const carts = useSelector((store) => store.cart.items);
   const products = useSelector((store) => store.products.products);
   const dispatch = useDispatch();
-
+  console.log('statusTab', statusTab);
   const handleToggleDrawer = () => {
     console.log('click close');
     dispatch(toggleStatusTab());
-    console.log("togle",toggleStatusTab.type);
+    // console.log("togle",dispatch(toggleStatusTab()));
   };
 
   const cartContent = (
