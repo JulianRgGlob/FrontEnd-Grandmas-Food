@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   detail: {},
+  openAlert: false,
 }
 
 const detailCartItemsSlice = createSlice({
@@ -13,8 +14,11 @@ const detailCartItemsSlice = createSlice({
       const productId = action.payload.productUuid
       state.detail[productId] = action.payload 
     },
+    setOpenAlert(state, action) {
+      state.openAlert = action.payload
+    }
   },
 })
 
-export const { setDetail } = detailCartItemsSlice.actions
+export const { setDetail , setOpenAlert } = detailCartItemsSlice.actions
 export default detailCartItemsSlice.reducer
