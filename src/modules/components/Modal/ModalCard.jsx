@@ -7,6 +7,7 @@ import { addToCart,setQuantity } from "../../../stores/cartSlice";
 
 function ModalCard({ open, handleClose, selectedProduct }) {
   const quantity = useSelector((state) => state.cart.quantity)
+  const userId = useSelector((state) => state.auth.userId)
   const dispatch = useDispatch()
   useEffect(() => {
     if (open) {
@@ -20,9 +21,14 @@ function ModalCard({ open, handleClose, selectedProduct }) {
     dispatch(setQuantity(quantity + 1))
   };
   const handleAddToCart = (product) => {
+    if (!userId) {
+      console.error("No userId provided");
+      return;
+    }
     dispatch(addToCart({
       productId: product,
-      quantity:quantity
+      quantity:quantity,
+      userId,
     }))
     handleClose();
   }

@@ -7,6 +7,7 @@ const initialState = {
   statusTab: false,
   quantity:1,
   totalQuantity:0,
+  userId:null,
 }
 const cartSlice = createSlice({
   name: 'cart',
@@ -15,16 +16,25 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       console.log('Productos cart:', action.payload)
 
-      const { productId, quantity } = action.payload
+      const { productId, quantity, userId } = action.payload
+      if(!userId){
+        console.error('No userId provided');
+        return
+      }
+      const cartKey = `cart-${userId}`
+      const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
+
       const indexProductId = state.items.findIndex(
         (item) => item.productId === productId
       )
       if (indexProductId >= 0) {
-        state.items[indexProductId].quantity += quantity
+        existingCart[indexProductId].quantity += quantity
       } else {
-        state.items.push({ productId, quantity })
+        existingCart.push({ productId, quantity })
       }
-      localStorage.setItem('carts', JSON.stringify(state.items))
+      state.items = existingCart
+      console.log('Productos cart:', state.items)
+      localStorage.setItem('cartsKey', JSON.stringify(existingCart))
     },
     changeQuanity(state, action) {
       const { productId, quantity } = action.payload

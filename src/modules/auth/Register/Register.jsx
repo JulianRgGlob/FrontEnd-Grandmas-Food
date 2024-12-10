@@ -16,6 +16,7 @@ import {
   setHashPassword,
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
+import {v4 as uuidv4} from 'uuid'
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -40,9 +41,10 @@ const Register = () => {
       const hash = bcrypt.hashSync(passwords, 10)
       dispatch(setHashPassword(hash))
       console.log('Hash Password:', hash)
-      localStorage.setItem('user', JSON.stringify({ name, email, hash }))
+      const id = uuidv4()
+      localStorage.setItem('user', JSON.stringify({id, name, email, hash }))
       navigate('/login')
-      console.log('Data Register:', { email, hash, name })
+      console.log('Data Register:', {id, email, hash, name })
     }
   }
 

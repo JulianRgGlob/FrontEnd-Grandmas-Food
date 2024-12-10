@@ -14,6 +14,7 @@ import {
   setErrors,
   setErrorMessage,
   clearErrors,
+  setUser
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
 
@@ -26,6 +27,7 @@ const Login = () => {
   const errorMessage = useSelector((state) => state.auth.errorMessage)
   const navigate = useNavigate()
   const handleClickShowPassword = () => dispatch(setShowPassword())
+  
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(clearErrors())
@@ -35,17 +37,16 @@ const Login = () => {
       passwords
     )
     dispatch(setErrors(validationErrors))
-    console.log('click')
+    
     if (isValid) {
       const loggedUser = JSON.parse(localStorage.getItem('user'))
-      console.log(loggedUser.name)
-      console.log(loggedUser.email)
-      console.log(loggedUser.hash)
       const isMatch = bcrypt.compareSync(passwords, loggedUser.hash);
-      console.log("ismatach",isMatch)
       if (email === loggedUser.email && isMatch) {
+        dispatch(setUser({id: loggedUser.id, name: loggedUser.name, email: loggedUser.email}))
         localStorage.setItem('loggedin', true)
+        console.log(loggedUser);
         navigate('/')
+
       } else {
         dispatch(setErrorMessage('Incorrect Credentials'))
       }
@@ -53,6 +54,7 @@ const Login = () => {
       dispatch(setErrorMessage('User not found'))
     }
   }
+
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" component="h1" gutterBottom>

@@ -10,18 +10,25 @@ import { StyledCardMediaImg } from './CadMenu.style'
 import Typography from '@mui/material/Typography'
 import { addToCart } from '../../../stores/cartSlice'
 import { setSelectProduct } from '../../../stores/productsSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const Cards = ({ product, images }) => {
   const dispatch = useDispatch()
+  const userId = useSelector((state) => {
+    return state.auth.user?.id;
+  });
 
   const handleAddToCart = (product) => {
-    console.log('product en menucard ', product.productUuid)
+    if (!userId) {
+      console.error('No userId provided')
+      return
+    }
 
     dispatch(
       addToCart({
         productId: product.productUuid,
         quantity: 1,
+        userId,
       })
     )
   }

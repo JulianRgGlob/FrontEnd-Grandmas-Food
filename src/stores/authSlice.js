@@ -11,6 +11,7 @@ const initialState = {
   errorMessage: '',
   nickName: '',
   hashPassword: '',
+  user:null,
 }
 
 const authSlice = createSlice({
@@ -42,6 +43,12 @@ const authSlice = createSlice({
     setHashPassword(state, action) {
       state.hashPassword = action.payload
     },
+    setUser(state, action) {
+      state.user = action.payload
+    },
+    clearUser(state) {
+      state.user = null
+    },
   },
 })
 
@@ -54,5 +61,7 @@ export const {
   clearErrors,
   setNickName,
   setHashPassword,
+  setUser,
+  clearUser,
 } = authSlice.actions
 export default authSlice.reducer
