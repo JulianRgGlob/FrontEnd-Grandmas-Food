@@ -8,7 +8,9 @@ import CardMedia from '@mui/material/CardMedia'
 
 function CartItemHorizontal(props) {
   const dispatch = useDispatch()
-
+  const userId = useSelector((state) => {
+    return state.auth.user?.id;
+  });
   const { productId, quantity } = props.data
   console.log(productId, quantity)
 
@@ -39,18 +41,30 @@ function CartItemHorizontal(props) {
   }, [productId, products, dispatch, detail])
 
   const handleMinusQuantity = () => {
+    if (!userId) {
+      console.error('No userId provided')
+      return
+    }
+
     dispatch(
       changeQuanity({
         productId: productId,
         quantity: quantity - 1,
+        userId,
       })
     )
   }
   const handlePlusQuantity = () => {
+    if (!userId) {
+      console.error('No userId provided')
+      return
+    }
+    
     dispatch(
       changeQuanity({
         productId: productId,
         quantity: quantity + 1,
+        userId,
       })
     )
   }

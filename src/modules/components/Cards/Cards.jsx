@@ -23,7 +23,8 @@ export const Cards = ({ product, images }) => {
       console.error('No userId provided')
       return
     }
-
+    console.log('Click Add to Cart:', product.productUuid);
+    
     dispatch(
       addToCart({
         productId: product.productUuid,

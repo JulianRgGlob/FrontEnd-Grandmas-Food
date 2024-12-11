@@ -11,7 +11,9 @@ function CartItem(props) {
 
   const { productId, quantity } = props.data
   console.log(productId, quantity)
-
+  const userId = useSelector((state) => {
+    return state.auth.user?.id;
+  });
   const { products } = props
   console.log(products)
   const detail = useSelector((store) => store.detail.detail[productId])
@@ -40,18 +42,32 @@ function CartItem(props) {
   }, [productId, products, dispatch, detail])
 
   const handleMinusQuantity = () => {
+    
+    if (!userId) {
+      console.error('No userId provided')
+      return
+    }
+
     dispatch(
       changeQuanity({
         productId: productId,
         quantity: quantity - 1,
+        userId,
       })
     )
   }
   const handlePlusQuantity = () => {
+
+    if (!userId) {
+      console.error('No userId provided')
+      return
+    }
+
     dispatch(
       changeQuanity({
         productId: productId,
         quantity: quantity + 1,
+        userId,
       })
     )
   }
