@@ -17,8 +17,10 @@ import {
   setUser
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
+import { setCartItems } from '../../../stores/cartSlice'
 
 const Login = () => {
+  
   const dispatch = useDispatch()
   const email = useSelector((state) => state.auth.email)
   const passwords = useSelector((state) => state.auth.passwords)
@@ -29,6 +31,7 @@ const Login = () => {
   const handleClickShowPassword = () => dispatch(setShowPassword())
   
   const handleSubmit = (event) => {
+
     event.preventDefault()
     dispatch(clearErrors())
     const { errors: validationErrors, isValid } = validationForm(
@@ -39,12 +42,21 @@ const Login = () => {
     dispatch(setErrors(validationErrors))
     
     if (isValid) {
-      const loggedUser = JSON.parse(localStorage.getItem('user'))
-      const isMatch = bcrypt.compareSync(passwords, loggedUser.hash);
+
+      const users = JSON.parse(localStorage.getItem('users'))
+      const loggedUser = users.find((user) => user.email === email)
+      const isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
+
       if (email === loggedUser.email && isMatch) {
+
         dispatch(setUser({id: loggedUser.id, name: loggedUser.name, email: loggedUser.email}))
-        localStorage.setItem('loggedin', true)
-        console.log(loggedUser);
+        
+        const cartKey = `cart-${loggedUser.id}`
+        const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
+        dispatch(setCartItems(existingCart))
+
+        localStorage.setItem('loggedin', loggedUser.id)
+        
         navigate('/')
 
       } else {

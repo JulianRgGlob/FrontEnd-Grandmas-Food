@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import Box from "@mui/material/Box";
-import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import Avatar from "@mui/material/Avatar";
-import { pagesNav, settingsNav } from "./NavabarConst";
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components'
+import Box from '@mui/material/Box'
+import MenuIcon from '@mui/icons-material/Menu'
+import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import Avatar from '@mui/material/Avatar'
+import { pagesNav, settingsNav } from './NavabarConst'
+import { useNavigate } from 'react-router-dom'
 const StyledBoxNavImg = styled(Box)`
   margin-right: 8px;
   @media (max-width: 600px) {
@@ -23,11 +23,11 @@ const StyledBoxNavImg = styled(Box)`
     height: 40px;
     width: 40px;
   }
-`;
+`
 
 const ImageLogoNav = ({ src, alt }) => {
-  return <StyledBoxNavImg component="img" src={src} alt={alt} />;
-};
+  return <StyledBoxNavImg component="img" src={src} alt={alt} />
+}
 
 const StyledBoxNav = styled(Box)`
   flex-grow: 1;
@@ -39,7 +39,7 @@ const StyledBoxNav = styled(Box)`
   @media (min-width: 900px) {
     display: none;
   }
-`;
+`
 
 const StyledIconButton = (props) => {
   return (
@@ -53,72 +53,82 @@ const StyledIconButton = (props) => {
     >
       <MenuIcon />
     </IconButton>
-  );
-};
+  )
+}
 
 const StyledMenu = ({ anchorEl, open, onClose }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-    const handleMenuItemClick = (page) => {
-        if (page === 'Carrito') {
-          "estoy aca"
-            navigate('/detailCar'); 
-        }
-        onClose(); 
-    };
+  const handleMenuItemClick = (page) => {
+    if (page === 'Carrito') {
+      ;('estoy aca')
+      navigate('/detailCar')
+    }
+    onClose()
+  }
   return (
     <Menu
       id="menu-appbar"
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
+        vertical: 'bottom',
+        horizontal: 'left',
       }}
       keepMounted
       transformOrigin={{
-        vertical: "top",
-        horizontal: "left",
+        vertical: 'top',
+        horizontal: 'left',
       }}
       open={Boolean(open)}
       onClose={onClose}
-      sx={{ display: { xs: "block", md: "none" } }}
+      sx={{ display: { xs: 'block', md: 'none' } }}
     >
       {pagesNav.map((page) => (
         <MenuItem key={page} onClick={() => handleMenuItemClick(page)}>
-          <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+          <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
         </MenuItem>
       ))}
     </Menu>
-  );
-};
+  )
+}
 
 const StyledBoxPageNav = ({ onClick }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-    const handleMenuItemClick = (page) => {
-        if (page === 'Carrito') {
-            navigate('/detailCar'); 
-          }else if(page === 'Products'){
-            navigate('/'); 
-        }
-        onClick(); 
-    };
+  const handleMenuItemClick = (page) => {
+    if (page === 'Carrito') {
+      navigate('/detailCar')
+    } else if (page === 'Products') {
+      navigate('/')
+    }
+    onClick()
+  }
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
       {pagesNav.map((page) => (
         <Button
           key={page}
           onClick={() => handleMenuItemClick(page)}
-          sx={{ my: 2, color: "white", display: "block" }}
+          sx={{ my: 2, color: 'white', display: 'block' }}
         >
           {page}
         </Button>
       ))}
     </Box>
-  );
-};
+  )
+}
 
 const StyledBoxUser = ({ onClickO, anchorEl, open, onClose, onClickC }) => {
+  const navigate = useNavigate()
+  
+  const handleMenuClick = (setting) => {
+    if (setting === "Logout") {
+      onClickC(); 
+    } else if (setting === "Profile") {
+      navigate('/Profile')
+    }
+    onClose()
+  };
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
@@ -127,30 +137,30 @@ const StyledBoxUser = ({ onClickO, anchorEl, open, onClose, onClickC }) => {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: "45px" }}
+        sx={{ mt: '45px' }}
         id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         open={Boolean(open)}
         onClose={onClose}
       >
         {settingsNav.map((setting) => (
-          <MenuItem key={setting} onClick={onClickC}>
-            <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
+          <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
+            <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
           </MenuItem>
         ))}
       </Menu>
     </Box>
-  );
-};
+  )
+}
 export {
   StyledBoxNav,
   ImageLogoNav,
@@ -159,4 +169,4 @@ export {
   StyledBoxPageNav,
   StyledBoxUser,
   StyledBoxNavImg,
-};
+}

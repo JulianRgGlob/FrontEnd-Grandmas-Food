@@ -16,7 +16,7 @@ import {
   setHashPassword,
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -36,15 +36,26 @@ const Register = () => {
       passwords,
       true
     )
+
     dispatch(setErrors(validationErrors))
+
     if (isValid) {
       const hash = bcrypt.hashSync(passwords, 10)
-      dispatch(setHashPassword(hash))
-      console.log('Hash Password:', hash)
       const id = uuidv4()
-      localStorage.setItem('user', JSON.stringify({id, name, email, hash }))
+      const users = JSON.parse(localStorage.getItem('users')) || []
+
+      dispatch(setHashPassword(hash))
+      const existUser = users.find((user) => user.email === email)
+      if (existUser) {
+        dispatch(setErrors({ email: 'Email already registered' }))
+        return
+      }
+      const newUser = { id, name, email, hash }
+      users.push(newUser)
+
+      localStorage.setItem('users', JSON.stringify(users))
+      console.log('Data Register:', newUser)
       navigate('/login')
-      console.log('Data Register:', {id, email, hash, name })
     }
   }
 
@@ -68,11 +79,7 @@ const Register = () => {
           passwords={passwords}
           handleClickShowPassword={handleClickShowPassword}
         />
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ marginTop: 2 }}
-        >
+        <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
           Register
         </Button>
         <Box

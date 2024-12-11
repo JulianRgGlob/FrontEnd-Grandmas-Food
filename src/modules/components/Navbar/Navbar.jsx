@@ -15,6 +15,7 @@ import StyledIconButtonCart from './NavbarCar'
 import { setAnchorElNav, setAnchorElUser } from '../../../stores/navbarSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import CarT from '../CarT/CarT'
+import { clearCart } from '../../../stores/cartSlice'
 
 function Navbar() {
   const dispatch = useDispatch()
@@ -33,10 +34,15 @@ function Navbar() {
   }
 
   const handleCloseUserMenu = () => {
-    localStorage.removeItem('loggedin')
-    navigation('/login')
-    dispatch(setAnchorElUser(null))
-  }
+    dispatch(setAnchorElUser(null));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('loggedin');
+    dispatch(clearCart());
+    dispatch(setAnchorElUser(null));
+    navigation('/login');
+  };
   return (
     <AppBar position="static">
       <Container maxWidth="x1">
@@ -60,7 +66,8 @@ function Navbar() {
             onClickO={handleOpenUserMenu}
             anchorEl={anchorElUser}
             open={Boolean(anchorElUser)}
-            onClickC={handleCloseUserMenu}
+            onClickC={handleLogout}
+            onClose={handleCloseUserMenu}
           />
         </Toolbar>
       </Container>
