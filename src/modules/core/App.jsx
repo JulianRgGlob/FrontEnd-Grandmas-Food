@@ -7,6 +7,7 @@ import DetailCar from "../Pages/DetailCar";
 import ProtectedRoutes from "../auth/ProtectedRoutes";
 import ResetPassword from "../auth/ResetPassword";
 import Layout from "../Pages/Layout";
+import AdminHome from "../Pages/AdminHome"
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPass" element={<ResetPassword />} />
+        <Route path="/admin/verify" element={<AdminHome/>} />
         <Route element={<ProtectedRoutes />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Homes />} />

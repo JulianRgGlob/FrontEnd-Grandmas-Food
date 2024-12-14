@@ -8,7 +8,7 @@ export const CardHorizontally = () => {
   const products = useSelector((store) => store.products.products)
   const detail = useSelector((store) => store.detail.detail)
   const carts = useSelector((store) => store.cart.items)
-  const name = JSON.parse(localStorage.getItem('user')).name
+  const name = JSON.parse(localStorage.getItem('users')).name
 
   console.log('product Horizontal', products)
   console.log('detail cardHorizton', detail)
