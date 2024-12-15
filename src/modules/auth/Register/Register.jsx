@@ -50,7 +50,7 @@ const Register = () => {
         dispatch(setErrors({ email: 'Email already registered' }))
         return
       }
-      const newUser = { id, name, email, hash }
+      const newUser = { id, name, email, hash , role: 'user'}
       users.push(newUser)
 
       localStorage.setItem('users', JSON.stringify(users))

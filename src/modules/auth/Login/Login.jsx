@@ -14,13 +14,12 @@ import {
   setErrors,
   setErrorMessage,
   clearErrors,
-  setUser
+  setUser,
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
 import { setCartItems } from '../../../stores/cartSlice'
 
 const Login = () => {
-  
   const dispatch = useDispatch()
   const email = useSelector((state) => state.auth.email)
   const passwords = useSelector((state) => state.auth.passwords)
@@ -29,9 +28,8 @@ const Login = () => {
   const errorMessage = useSelector((state) => state.auth.errorMessage)
   const navigate = useNavigate()
   const handleClickShowPassword = () => dispatch(setShowPassword())
-  
-  const handleSubmit = (event) => {
 
+  const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(clearErrors())
     const { errors: validationErrors, isValid } = validationForm(
@@ -40,30 +38,72 @@ const Login = () => {
       passwords
     )
     dispatch(setErrors(validationErrors))
-    
+
     if (isValid) {
+      const users = JSON.parse(localStorage.getItem('users')) || []
+      const admins = JSON.parse(localStorage.getItem('admins')) || []
 
-      const users = JSON.parse(localStorage.getItem('users'))
+      
       const loggedUser = users.find((user) => user.email === email)
-      const isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
+      const loggedAdmin = admins.find((admin) => admin.email === email)
 
-      if (email === loggedUser.email && isMatch) {
+      if (!loggedUser && !loggedAdmin) {
+        dispatch(setErrorMessage('User not found'))
+        return
+      }
+      if (loggedAdmin) {
+        dispatch(setErrorMessage('Administrators cannot log in here'))
+        return navigate('/admin/verify');
+      }
+      let isMatch = false
 
-        dispatch(setUser({id: loggedUser.id, name: loggedUser.name, email: loggedUser.email}))
-        
-        const cartKey = `cart-${loggedUser.id}`
-        const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
-        dispatch(setCartItems(existingCart))
+      if (loggedUser) {
+        isMatch = bcrypt.compareSync(passwords, loggedUser.hash) 
+        if (isMatch) {
+          dispatch(
+            setUser({
+              id: loggedUser.id,
+              name: loggedUser.name,
+              email: loggedUser.email,
+            })
+          )
 
-        localStorage.setItem('loggedin', loggedUser.id)
-        
-        navigate('/')
+          const cartKey = `cart-${loggedUser.id}`
+          const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
+          dispatch(setCartItems(existingCart))
 
-      } else {
+          localStorage.setItem('loggedin', loggedUser.id)
+          navigate('/')
+          return
+        }
+      }
+
+      if (loggedAdmin) {
+        isMatch = passwords === loggedAdmin.password 
+        if (isMatch) {
+          dispatch(
+            setUser({
+              id: loggedAdmin.id,
+              name: loggedAdmin.name,
+              email: loggedAdmin.email,
+            })
+          )
+
+          const cartKey = `cart-${loggedAdmin.id}`
+          const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
+          dispatch(setCartItems(existingCart))
+
+          localStorage.setItem('loggedin', loggedAdmin.id)
+          navigate('/admin/dashboard')
+          return
+        }
+      }
+
+      if (!isMatch) {
         dispatch(setErrorMessage('Incorrect Credentials'))
       }
     } else {
-      dispatch(setErrorMessage('User not found'))
+      dispatch(setErrorMessage('Invalid form'))
     }
   }
 
@@ -92,7 +132,7 @@ const Login = () => {
         <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
           Login
         </Button>
-        <StyledBox/>
+        <StyledBox />
       </Box>
     </Container>
   )
