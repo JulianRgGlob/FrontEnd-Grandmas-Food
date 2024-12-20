@@ -52,7 +52,7 @@ const Login = () => {
         return
       }
 
-      if (loggedAdmin) {
+      if (loggedAdmin && loggedAdmin.role === 'admin') {
         let isMatch = passwords == loggedAdmin.password
         if (isMatch) {
           dispatch(
@@ -72,8 +72,8 @@ const Login = () => {
         }
       }
 
-      if (loggedUser) {
-        isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
+      if (loggedUser && loggedUser.role === 'user') {
+        let isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
         if (isMatch) {
           dispatch(
             setUser({

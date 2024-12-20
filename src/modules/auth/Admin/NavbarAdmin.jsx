@@ -1,16 +1,18 @@
-import * as React from 'react';
-import { extendTheme, styled } from '@mui/material/styles';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
-
+import * as React from 'react'
+import { extendTheme, styled } from '@mui/material/styles'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import BarChartIcon from '@mui/icons-material/BarChart'
+import DescriptionIcon from '@mui/icons-material/Description'
+import PersonPinIcon from '@mui/icons-material/PersonPin'
+import { AppProvider } from '@toolpad/core/AppProvider'
+import { DashboardLayout } from '@toolpad/core/DashboardLayout'
+import { PageContainer } from '@toolpad/core/PageContainer'
+import Dashboard from '../../components/Admin/Dashboard'
+import Orders from '../../components/Admin/Orders'
+import ReportSales from '../../components/Admin/ReportSales'
+import ReportProducts from '../../components/Admin/ReportProducts'
+import AccountInfo from '../../components/Admin/AccountInfo'
 const NAVIGATION = [
   {
     kind: 'header',
@@ -44,16 +46,11 @@ const NAVIGATION = [
         icon: <DescriptionIcon />,
       },
       {
-        segment: 'traffic',
-        title: 'Traffic',
+        segment: 'products',
+        title: 'Products',
         icon: <DescriptionIcon />,
       },
     ],
-  },
-  {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
   },
   {
     kind: 'divider',
@@ -67,7 +64,7 @@ const NAVIGATION = [
     title: 'Account',
     icon: <PersonPinIcon />,
   },
-];
+]
 
 const demoTheme = extendTheme({
   colorSchemes: { light: true, dark: true },
@@ -81,20 +78,20 @@ const demoTheme = extendTheme({
       xl: 1536,
     },
   },
-});
+})
 
 function useDemoRouter(initialPath) {
-  const [pathname, setPathname] = React.useState(initialPath);
+  const [pathname, setPathname] = React.useState(initialPath)
 
   const router = React.useMemo(() => {
     return {
       pathname,
       searchParams: new URLSearchParams(),
       navigate: (path) => setPathname(String(path)),
-    };
-  }, [pathname]);
+    }
+  }, [pathname])
 
-  return router;
+  return router
 }
 
 const Skeleton = styled('div')(({ theme, height }) => ({
@@ -102,22 +99,37 @@ const Skeleton = styled('div')(({ theme, height }) => ({
   borderRadius: theme.shape.borderRadius,
   height,
   content: '" "',
-}));
+}))
 
 export default function DashboardLayoutBasic(props) {
-  const { window } = props;
+  const { window } = props
 
-  const router = useDemoRouter('/dashboard');
+  const router = useDemoRouter('/dashboard')
 
-  // Remove this const when copying and pasting into your project.
-  const demoWindow = window ? window() : undefined;
+  const demoWindow = window ? window() : undefined
 
+  const renderPage = () => {
+    switch (router.pathname) {
+      case '/dashboard':
+        return <Dashboard />
+      case '/orders':
+        return <Orders />
+      case '/reports/sales':
+        return <ReportSales />
+      case '/reports/products':
+        return <ReportProducts />
+      case '/account':
+        return <AccountInfo />
+      default:
+        return <div>Page Not Found</div>
+    }
+  }
   return (
     <AppProvider
       navigation={NAVIGATION}
       router={router}
       branding={{
-        logo: <img src='../../src/assets/GFD.webp' alt="Admin GFD" />,
+        logo: <img src="../../src/assets/GFD.webp" alt="Admin GFD" />,
         title: 'Admin GFD',
         homeUrl: '/toolpad/core/introduction',
       }}
@@ -125,44 +137,8 @@ export default function DashboardLayoutBasic(props) {
       window={demoWindow}
     >
       <DashboardLayout>
-        <PageContainer>
-          <Grid container spacing={1}>
-            <Grid size={5} />
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={4}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={8}>
-              <Skeleton height={100} />
-            </Grid>
-
-            <Grid size={12}>
-              <Skeleton height={150} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-          </Grid>
-        </PageContainer>
+        <PageContainer>{renderPage()}</PageContainer>
       </DashboardLayout>
     </AppProvider>
-  );
+  )
 }
