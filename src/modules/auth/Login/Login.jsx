@@ -30,6 +30,7 @@ const Login = () => {
   const handleClickShowPassword = () => dispatch(setShowPassword())
 
   const handleSubmit = (event) => {
+    
     event.preventDefault()
     dispatch(clearErrors())
     const { errors: validationErrors, isValid } = validationForm(
@@ -43,7 +44,6 @@ const Login = () => {
       const users = JSON.parse(localStorage.getItem('users')) || []
       const admins = JSON.parse(localStorage.getItem('admins')) || []
 
-      
       const loggedUser = users.find((user) => user.email === email)
       const loggedAdmin = admins.find((admin) => admin.email === email)
 
@@ -51,20 +51,36 @@ const Login = () => {
         dispatch(setErrorMessage('User not found'))
         return
       }
+
       if (loggedAdmin) {
-        dispatch(setErrorMessage('Administrators cannot log in here'))
-        return navigate('/admin/verify');
+        let isMatch = passwords == loggedAdmin.password
+        if (isMatch) {
+          dispatch(
+            setUser({
+              id: loggedAdmin.id,
+              name: loggedAdmin.name,
+              email: loggedAdmin.email,
+              role: loggedAdmin.role,
+            })
+          )
+          localStorage.setItem('loggedin', loggedAdmin.id)
+          navigate('/admin/dashboard') 
+          return
+        } else {
+          dispatch(setErrorMessage('Incorrect admin password'))
+          return
+        }
       }
-      let isMatch = false
 
       if (loggedUser) {
-        isMatch = bcrypt.compareSync(passwords, loggedUser.hash) 
+        isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
         if (isMatch) {
           dispatch(
             setUser({
               id: loggedUser.id,
               name: loggedUser.name,
               email: loggedUser.email,
+              role: loggedUser.role,
             })
           )
 
@@ -78,30 +94,7 @@ const Login = () => {
         }
       }
 
-      if (loggedAdmin) {
-        isMatch = passwords === loggedAdmin.password 
-        if (isMatch) {
-          dispatch(
-            setUser({
-              id: loggedAdmin.id,
-              name: loggedAdmin.name,
-              email: loggedAdmin.email,
-            })
-          )
-
-          const cartKey = `cart-${loggedAdmin.id}`
-          const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
-          dispatch(setCartItems(existingCart))
-
-          localStorage.setItem('loggedin', loggedAdmin.id)
-          navigate('/admin/dashboard')
-          return
-        }
-      }
-
-      if (!isMatch) {
-        dispatch(setErrorMessage('Incorrect Credentials'))
-      }
+      dispatch(setErrorMessage('Incorrect Credentials'))
     } else {
       dispatch(setErrorMessage('Invalid form'))
     }
