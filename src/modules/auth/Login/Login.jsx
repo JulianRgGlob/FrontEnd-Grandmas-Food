@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
@@ -27,6 +27,7 @@ const Login = () => {
   const errors = useSelector((state) => state.auth.errors)
   const errorMessage = useSelector((state) => state.auth.errorMessage)
   const navigate = useNavigate()
+  const location = useLocation()
   const handleClickShowPassword = () => dispatch(setShowPassword())
 
   const handleSubmit = (event) => {
@@ -52,7 +53,7 @@ const Login = () => {
         return
       }
 
-      if (loggedAdmin && loggedAdmin.role === 'admin') {
+      if (location.pathname === '/admin/verify' && loggedAdmin && loggedAdmin.role === 'admin') {
         let isMatch = passwords == loggedAdmin.password
         if (isMatch) {
           dispatch(
@@ -72,7 +73,7 @@ const Login = () => {
         }
       }
 
-      if (loggedUser && loggedUser.role === 'user') {
+      if (location.pathname === '/login' && loggedUser && loggedUser.role === 'user') {
         let isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
         if (isMatch) {
           dispatch(
