@@ -3,7 +3,6 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoutes = ({ isAdminRoute = false }) => {
   const auth = localStorage.getItem('loggedin')
-  console.log('Auth:', auth);
   
   const usersData = localStorage.getItem('users')
   const adminsData = localStorage.getItem('admins')
@@ -14,7 +13,6 @@ const ProtectedRoutes = ({ isAdminRoute = false }) => {
     try {
       if (isAdminRoute && adminsData) {
         const admins = JSON.parse(adminsData)
-        console.log('Admins:', admins);
         user = admins.find((admin) => admin.id === auth)
       } else if (!isAdminRoute && usersData) {
         const users = JSON.parse(usersData)
@@ -31,7 +29,6 @@ const ProtectedRoutes = ({ isAdminRoute = false }) => {
       )
     }
   }
-  console.log('Usuario encontrado:', user)
 
   if (!auth || !user) {
     return <Navigate to={isAdminRoute ? '/admin/verify' : '/login'} />;

@@ -1,2 +1,2 @@
-export const pagesNav = ["Products", "Carrito"];
-export const settingsNav = ["Profile", "Logout"];
+export const pagesNav = ["Products", "Shopping Cart"];
+export const settingsNav = ["Logout"];

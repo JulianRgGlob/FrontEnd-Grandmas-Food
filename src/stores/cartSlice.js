@@ -12,6 +12,9 @@ const initialState = {
   quantity: 1,
   totalQuantity: 0,
   userId: null,
+  selectedUserId: null,
+  rows:[],
+  editRows:{},
 }
 
 const cartSlice = createSlice({
@@ -109,6 +112,15 @@ const cartSlice = createSlice({
     },
     clearCart(state, action) {
       state.items= []
+    },
+    setSelectedUserId(state, action) {
+      state.selectedUserId = action.payload
+    },
+    setRows(state, action) {
+      state.rows = action.payload
+    },
+    setEditRows(state, action) {
+      state.editRows = action.payload
     }
   },
 })
@@ -121,7 +133,9 @@ export const {
   toggleStatusTab,
   setQuantity,
   setTotalQuantity,
-  initializeCart
+  initializeCart,
+  setSelectedUserId,
+  setRows,
 } = cartSlice.actions
 
 export default cartSlice.reducer

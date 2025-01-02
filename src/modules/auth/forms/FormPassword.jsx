@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { setPassword, setErrors} from '../../../stores/authSlice'
 
 export const FormPassword = ({errors,showPassword,passwords,handleClickShowPassword}) => {
-
+  
   const dispatch = useDispatch()
   
   return (

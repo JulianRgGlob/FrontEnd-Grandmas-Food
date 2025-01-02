@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography'
 import { addToCart } from '../../../stores/cartSlice'
 import { setSelectProduct } from '../../../stores/productsSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { setOpen } from '../../../stores/modalSlice'
+import { cleanName } from '../../../utils/clearData/cleanName'
 
 export const Cards = ({ product, images }) => {
   const dispatch = useDispatch()
@@ -37,7 +39,6 @@ export const Cards = ({ product, images }) => {
     dispatch(setOpen(true))
     dispatch(setSelectProduct(product))
   }
-
   return (
     <Card sx={{ width: 250, margin: 1 }}>
       <CardActionArea>
@@ -48,10 +49,10 @@ export const Cards = ({ product, images }) => {
             alt={product.fantasyName}
           />
           <Typography gutterBottom variant="h5" component="div">
-            {product.fantasyName}
+            {cleanName(product.fantasyName)}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Precio: ${product.price.toFixed(2)}
+            Price: ${product.price.toFixed(2)}
           </Typography>
         </CardContent>
       </CardActionArea>

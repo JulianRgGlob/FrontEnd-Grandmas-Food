@@ -7,7 +7,7 @@ function DetailCar() {
     <div style={{    
       padding: "1.25rem",
     }}>
-      <Typography variant="h4" gutterBottom> Shopping Card </Typography>
+      <Typography variant="h4" gutterBottom sx={{textAlign:'center', marginBottom:'40px'}}> Shopping Card </Typography>
       <CardHorizontally/>
     </div>
   )

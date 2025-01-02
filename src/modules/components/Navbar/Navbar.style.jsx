@@ -60,7 +60,7 @@ const StyledMenu = ({ anchorEl, open, onClose }) => {
   const navigate = useNavigate()
 
   const handleMenuItemClick = (page) => {
-    if (page === 'Carrito') {
+    if (page === 'Shopping Cart') {
       ;('estoy aca')
       navigate('/detailCar')
     }
@@ -96,7 +96,7 @@ const StyledBoxPageNav = ({ onClick }) => {
   const navigate = useNavigate()
 
   const handleMenuItemClick = (page) => {
-    if (page === 'Carrito') {
+    if (page === 'Shopping Cart') {
       navigate('/detailCar')
     } else if (page === 'Products') {
       navigate('/')

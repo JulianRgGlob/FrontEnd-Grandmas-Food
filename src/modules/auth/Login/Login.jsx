@@ -18,7 +18,6 @@ import {
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
 import { setCartItems } from '../../../stores/cartSlice'
-import { use } from 'react'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -86,10 +85,8 @@ const Login = () => {
             })
           )
           const allCarts = JSON.parse(localStorage.getItem('allCarts')) || []
-          console.log('allCarts', allCarts);
           
           const userCart = allCarts.find((cart) => cart.userId === loggedUser.id)
-          console.log('userCart', userCart);
           dispatch(setCartItems(userCart?.items || []))
 
           localStorage.setItem('loggedin', loggedUser.id)
@@ -105,13 +102,14 @@ const Login = () => {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" component="h1" gutterBottom>
+    <Container sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'100vh', width: '100%',backgroundColor:'#D9DCD6'}} maxWidth={false}>
+      <Box sx={{backgroundColor:'#81C3D7', padding: '30px', borderRadius: '10px', paddingTop: '80px', paddingBottom: '80px',boxShadow:'10px 10px 5px grey, -10px -10px 5px lightgrey'}}>
+      <Typography variant="h4" component="h1" gutterBottom sx={{textAlign:'center', textShadow:'3px 4px 12px #3A7CA5' }}>
         Sign in
       </Typography>
       <Box
         component="form"
-        sx={{ width: 500, maxWidth: '100%' }}
+        sx={{ width: '100%', maxWidth: '600px' }}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit}
@@ -126,10 +124,11 @@ const Login = () => {
         {errorMessage && (
           <div style={{ color: 'red', marginTop: '5px' }}>{errorMessage}</div>
         )}
-        <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
+        <Button variant="contained" type="submit" sx={{ marginTop: 2 , backgroundColor:'#3A7CA5', color:'#000000'}}>
           Login
         </Button>
         <StyledBox />
+      </Box>
       </Box>
     </Container>
   )

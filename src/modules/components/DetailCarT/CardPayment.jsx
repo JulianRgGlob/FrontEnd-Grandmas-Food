@@ -12,15 +12,15 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { setOpenAlert } from '../../../stores/detailCartItemsSlice'
 
-export const CardPayment = ({ name = "Default User" }) => {
+export const CardPayment = ( {name = "Default User" , totalPrice,quantityTot} ) => {
   const open = useSelector((store) => store.detail.openAlert)
   const dispatch = useDispatch()
-  const displayName = name.name
+  const displayName = name
+  
   let theme = createTheme({});
 
   const handleSubmmit = () => {
     dispatch(setOpenAlert(true))
-    // <Alert severity="success">Payment Successfull.</Alert>
   }
 
   const handleClose = (event, reason) => {
@@ -31,6 +31,15 @@ export const CardPayment = ({ name = "Default User" }) => {
   };
 
   theme = createTheme(theme, {
+    typography: {
+      poster: {
+        fontSize: 32,
+        color: '#D9DCD6',
+      },
+      fontFamily: [
+        'Roboto',
+      ]
+    },
     palette: {
       white: theme.palette.augmentColor({
         color: {
@@ -43,58 +52,70 @@ export const CardPayment = ({ name = "Default User" }) => {
 
   return (
     <ThemeProvider theme={theme}>
-    <div
-      style={{
-        backgroundColor: '#1976d2',
-        borderRadius: '4px',
-        width: '35%',
-        marginTop: '20px',
-        marginBottom: '20px',
-        display: 'flex',
-        flexDirection:'column',
-        justifyContent:'space-between',
-        alignItems: 'center',
-
-      }}
-    >
-      <Typography variant="h4" sx={{textAlign:'center',padding:'10px',width:'100%',height:'10%'}}>Card Details</Typography>
       <Box
-        component="form"
-        sx={{ display: 'flex', flexDirection: 'column',justifyContent:'space-between',width:'100%',height:'82%' }}
-        noValidate
-        autoComplete="off"
+      sx={{
+          backgroundColor: '#16425B',
+          borderRadius: '4px',
+          width: '35%',
+          maxHeight: '80%',
+          margin: 'auto', 
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center', 
+          alignItems: 'center',
+          height: '500px', 
+          padding: '20px', 
+          boxShadow: 3, 
+        }}
       >
-        <Box sx={{display:'flex',flexDirection:'column',justifyContent:'space-between',margin:'40px',height:'100%',boxShadow:'3px'}}>
-        <FormControl variant="standard" color='white'>
-          <InputLabel htmlFor="component-simple">Cardholder Name</InputLabel>
-          <Input id="component-simple" defaultValue={displayName} />
-        </FormControl>
-        <FormControl variant="standard" color='white' >
-          <InputLabel htmlFor="component-simple" >Card Number</InputLabel>
-          <Input id="component-simple" defaultValue="1234567890-72" />
-        </FormControl>
-        <TextField
-          label="CSV"
-          sx={{display:'flex'}}
-          color='white'
-        />
+        <Typography variant="poster" sx={{ textAlign: 'center', padding: '10px', width: '100%', textColor:'white' }}>
+          Card Details
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            width: '100%',
+            height: '70%', 
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', margin: '20px 0', height: '100%' }}>
+            <FormControl variant="standard" color="white">
+            <InputLabel htmlFor="component-simple" style={{ color: '#D9DCD6' }}>Cardholder Name </InputLabel>
+              <Input id="component-simple" defaultValue={displayName.name} style={{ color: '#D9DCD6' }}/>
+            </FormControl>
+            <FormControl variant="standard" color="white">
+              <InputLabel htmlFor="component-simple" style={{ color: '#D9DCD6' }}>Card Number</InputLabel>
+              <Input id="component-simple" defaultValue="1234567890-72" style={{ color: '#D9DCD6' }} />
+            </FormControl>
+            <TextField label="CSV" style={{ color: '#D9DCD6' }} color="white" />
+          </Box>
         </Box>
+        <Box sx={{ display: 'flex', flexDirection:'column', justifyContent: 'center', textAlign:'center',padding: '10px', width: '100%' }}>
+         <Typography variant="h6" sx={{ color: '#D9DCD6' }}>Total $: {totalPrice}</Typography>
+         <Typography variant="h6" sx={{ color: '#D9DCD6' }}>Total Products: {quantityTot}</Typography>
+         </Box>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '10px', width: '100%' }}>
+          <Button variant="contained" sx={{backgroundColor:'#3A7CA5'}} onClick={handleSubmmit}>
+            Check Out
+          </Button>
+        </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          sx={{ width: '30%' }}
+        >
+          <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
+            Payment Successful.
+          </Alert>
+        </Snackbar>
       </Box>
-      <div style={{display:'flex',justifyContent:'center',padding:'10px',width:'100%',height:'8%'}}>
-      <Button variant="contained" color='success' onClick={handleSubmmit}>Check Out</Button>
-      <Snackbar
-        open={open}
-        autoHideDuration={4000} 
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        sx={{ display:'',width: '30%' }}
-      >
-        <Alert onClose={handleClose}variant='filled' severity="success" sx={{ width: '100%' }}>
-          Payment Successful.
-        </Alert>
-      </Snackbar>
-      </div>
-    </div>
     </ThemeProvider>
   )
 }

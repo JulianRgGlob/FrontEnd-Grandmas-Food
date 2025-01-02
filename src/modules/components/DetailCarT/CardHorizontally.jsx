@@ -6,12 +6,24 @@ import CartItemHorizontal from './CartItemHorizontal'
 
 export const CardHorizontally = () => {
   const products = useSelector((store) => store.products.products)
-  const detail = useSelector((store) => store.detail.detail)
   const carts = useSelector((store) => store.cart.items)
-  const name = JSON.parse(localStorage.getItem('users')).name
-
-  console.log('product Horizontal', products)
-  console.log('detail cardHorizton', detail)
+  const userId = localStorage.getItem('loggedin')
+  const users = JSON.parse(localStorage.getItem('users'))
+  const loggedInUser = users.find(user => user.id === userId);
+  const name = loggedInUser ? loggedInUser.name : 'Usuario no encontrado';
+  const totalQuantity = carts.reduce((total, item) => total + item.quantity, 0);
+  
+  const totalPrice = carts.reduce((total, cartItem) => {
+    
+    const product = products.find(product => product.productUuid === cartItem.productId); 
+    console.log('product', product);
+    
+    if (product) {
+      return total + (product.price * cartItem.quantity);
+    }
+    
+    return total; 
+  }, 0);
 
   return (
     <div style={{ display: 'flex' }}>
@@ -29,7 +41,7 @@ export const CardHorizontally = () => {
           ))}
         </div>
       </Card>
-      <CardPayment name={{name}} sx={{height:'100%' }} />
+      <CardPayment name={name} totalPrice={totalPrice.toFixed(2)} quantityTot={totalQuantity} sx={{height:'100%' }} />
     </div>
   )
 }

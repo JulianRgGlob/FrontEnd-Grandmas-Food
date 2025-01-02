@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Modal, Typography } from "@mui/material";
 import { useDispatch,useSelector } from "react-redux";
 import { addToCart,setQuantity } from "../../../stores/cartSlice";
+import { cleanName } from "../../../utils/clearData/cleanName";
 
 function ModalCard({ open, handleClose, selectedProduct }) {
   const quantity = useSelector((state) => state.cart.quantity)
@@ -21,6 +22,8 @@ function ModalCard({ open, handleClose, selectedProduct }) {
     dispatch(setQuantity(quantity + 1))
   };
   const handleAddToCart = (product) => {
+    const userId = localStorage.getItem('loggedin')
+    
     if (!userId) {
       console.error("No userId provided");
       return;
@@ -41,9 +44,9 @@ function ModalCard({ open, handleClose, selectedProduct }) {
     >
       <StyledModalBoxCard>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          {selectedProduct?.fantasyName}
+          {cleanName(selectedProduct?.fantasyName)}
         </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Typography id="modal-modal-description" sx={{ mt: 2 , mb: 2}}>
           {selectedProduct?.description}
         </Typography>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

@@ -14,7 +14,7 @@ const Layout = () => {
           padding: '1.25rem', 
           transitionProperty: 'transform',
           transitionDuration: '500ms',
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#D9DCD6',
         }}
       >
         <Outlet />

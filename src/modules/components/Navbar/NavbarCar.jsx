@@ -11,7 +11,6 @@ const StyledIconButtonCart = () => {
   
   useEffect(() => {
     let total = 0
-    console.log('total', totalQuantity)
     carts.forEach((item) => (total += item.quantity))
     dispatch(setTotalQuantity(total))
   }, [carts])
@@ -31,7 +30,7 @@ const StyledIconButtonCart = () => {
       onClick={handleOpenTabCart}
     >
       <AddShoppingCartIcon
-        sx={{ display: { xs: 'flex', md: 'flex' }, mr: 2 }}
+        sx={{ display: { xs: 'flex', md: 'flex' , color: 'white'}, mr: 2 }}
       />
       <span
         style={{

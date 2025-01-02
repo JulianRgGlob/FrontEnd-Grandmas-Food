@@ -19,10 +19,7 @@ function App() {
   useEffect(() => {
     const userId = localStorage.getItem('loggedin')
     if (userId) {
-      console.log('Initializing cart for userId:', userId);
-console.log('Loaded items from localStorage:', loadCartFromLocalStorage(userId));
       dispatch(initializeCart({userId}))
-      console.log("App.js", userId);
       
     }  
     initializeAdmins()

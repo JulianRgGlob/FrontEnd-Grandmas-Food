@@ -6,7 +6,7 @@ import authReducer from './authSlice';
 import modalReducer from './modalSlice';
 import detailCartItemReducer from './detailCartItemsSlice';
 import navbarReducer from './navbarSlice';
-
+import usersReducer from './usersSlice';
 const rootReducer = combineReducers({
   cart: cartReducer,
   products: productsReducer,
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   detail: detailCartItemReducer,
   navbar: navbarReducer,
+  users: usersReducer,
 });
 
 export default rootReducer;

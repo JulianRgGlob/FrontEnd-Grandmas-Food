@@ -5,22 +5,20 @@ import { changeQuantity } from '../../../stores/cartSlice'
 import { setDetail } from '../../../stores/detailCartItemsSlice'
 import { CartItemButtom } from './CartItemButtom'
 import { StyledDivCart } from './Cart.style'
+import { cleanName } from '../../../utils/clearData/cleanName'
 
 function CartItem(props) {
   const dispatch = useDispatch()
 
   const { productId, quantity } = props.data
-  console.log(productId, quantity)
   const userId = useSelector((state) => {
     return state.auth.user?.id;
   });
   const { products } = props
-  console.log(products)
   const detail = useSelector((store) => store.detail.detail[productId])
   const images = useSelector((store) => store.images.images)
   const total = detail ? detail.price * quantity : 0
 
-  console.log('detail', detail)
 
   const productImage = detail ? images[detail.productUuid] : null
 
@@ -29,7 +27,6 @@ function CartItem(props) {
       const findDetail = products.find(
         (product) => product.productUuid === productId
       )
-      //si no esta ya el producto ahi si se despacha
       if (
         findDetail &&
         (!detail || detail.productUuid !== findDetail.productUuid)
@@ -95,7 +92,7 @@ function CartItem(props) {
           >
             <div style={{ flex: 2, display: 'flex', flexDirection: 'column' }}>
               <Typography variant="button" style={{ marginBottom: '0.5rem' }}>
-                {detail.fantasyName}
+                {cleanName(detail.fantasyName)}
               </Typography>
               <p style={{ marginBottom: '0.5rem' }}>
                 Price: ${total.toFixed(2)}
@@ -113,7 +110,7 @@ function CartItem(props) {
               <CartItemButtom value={handleMinusQuantity} text="-" />
               <div
             style={{
-              width: '70%', // Ancho fijo para la cantidad
+              width: '70%',
               textAlign: 'center',
             }}
           >

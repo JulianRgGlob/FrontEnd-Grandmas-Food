@@ -15,7 +15,6 @@ import StyledIconButtonCart from './NavbarCar'
 import { setAnchorElNav, setAnchorElUser } from '../../../stores/navbarSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import CarT from '../CarT/CarT'
-import { clearCart } from '../../../stores/cartSlice'
 
 function Navbar() {
   const dispatch = useDispatch()
@@ -39,18 +38,18 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('loggedin');
-    // dispatch(clearCart());
     dispatch(setAnchorElUser(null));
     navigation('/login');
   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#16425B' }}>
       <Container maxWidth="x1">
         <Toolbar disableGutters>
           <StyledBoxNavImg
             component="img"
             src="src\assets\GFD.webp"
             alt="Logo"
+            sx={{filter:'invert(1)'}}
           />
           <StyledBoxNav>
             <StyledIconButton onClick={handleOpenNavMenu}></StyledIconButton>

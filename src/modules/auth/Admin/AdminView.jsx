@@ -6,7 +6,6 @@ import DashboardLayoutBasic from '../Admin/NavbarAdmin'
 function AdminView() {
   return (
     <Box>
-      {/* <Typography variant="h2" sx={{textAlign:'center', margin:'10px'}}>Login Admin View</Typography> */}
       <DashboardLayoutBasic/>
     </Box>
   )

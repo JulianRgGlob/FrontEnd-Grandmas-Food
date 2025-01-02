@@ -23,10 +23,12 @@ const Register = () => {
   const email = useSelector((state) => state.auth.email)
   const passwords = useSelector((state) => state.auth.passwords)
   const showPassword = useSelector((state) => state.auth.showPassword)
+  console.log('showPassword:', showPassword);
+  
   const errors = useSelector((state) => state.auth.errors)
   const name = useSelector((state) => state.auth.nickName)
   const navigate = useNavigate()
-  const handleClickShowPassword = () => setShowPassword((show) => !show)
+  const handleClickShowPassword = () => dispatch(setShowPassword())
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -60,8 +62,9 @@ const Register = () => {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" component="h1" gutterBottom>
+    <Container sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'100vh', width: '100%',backgroundColor:'#D9DCD6'}} maxWidth={false}>
+     <Box sx={{backgroundColor:'#81C3D7', padding: '30px', borderRadius: '10px', paddingTop: '80px', paddingBottom: '80px',boxShadow:'10px 10px 5px grey, -10px -10px 5px lightgrey'}}>
+      <Typography variant="h4" component="h1" gutterBottom sx={{textAlign:'center', textShadow:'3px 4px 12px #3A7CA5' }}>
         Sign Up
       </Typography>
       <Box
@@ -79,7 +82,7 @@ const Register = () => {
           passwords={passwords}
           handleClickShowPassword={handleClickShowPassword}
         />
-        <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
+        <Button variant="contained" type="submit" sx={{ marginTop: 2 , backgroundColor:'#3A7CA5', color:'#000000'}}>
           Register
         </Button>
         <Box
@@ -89,12 +92,13 @@ const Register = () => {
             marginTop: '10px',
           }}
         >
-          <Link href="/login" variant="body2">
+          <Link href="/login" variant="body2" sx={{color:'black',textDecorationColor:'black'}}>
             <Typography variant="caption">
               Already have an account? Sign In
             </Typography>
           </Link>
         </Box>
+      </Box>
       </Box>
     </Container>
   )

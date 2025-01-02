@@ -8,14 +8,15 @@ const StyledBox = () => {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
+        marginTop: '10px',
       }}
     >
-      <Link href="/forgotPass" variant="body2" margin="normal">
+      <Link href="/forgotPass" variant="body2" sx={{color:'black',textDecorationColor:'black'}}  margin="normal">
         <Typography variant="caption">Forgot password?</Typography>
       </Link>
 
-      <Link href="/register" variant="body2">
-        <Typography variant="caption">
+      <Link href="/register" variant="body2" sx={{color:'black',textDecorationColor:'black'}}>
+        <Typography variant="caption" >
           Don't have an account? Sign Up
         </Typography>
       </Link>

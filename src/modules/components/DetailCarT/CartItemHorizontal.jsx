@@ -5,6 +5,7 @@ import { changeQuantity } from '../../../stores/cartSlice'
 import { setDetail } from '../../../stores/detailCartItemsSlice'
 import { CartItemButtom } from '../CarT/CartItemButtom'
 import CardMedia from '@mui/material/CardMedia'
+import { cleanName } from '../../../utils/clearData/cleanName'
 
 function CartItemHorizontal(props) {
   const dispatch = useDispatch()
@@ -12,14 +13,11 @@ function CartItemHorizontal(props) {
     return state.auth.user?.id;
   });
   const { productId, quantity } = props.data
-  console.log(productId, quantity)
 
   const { products } = props
-  console.log(products)
   const detail = useSelector((store) => store.detail.detail[productId])
   const images = useSelector((store) => store.images.images)
 
-  console.log('detail', detail)
 
   const productImage = detail ? images[detail.productUuid] : null
     const total = detail ? detail.price * quantity : 0
@@ -28,7 +26,6 @@ function CartItemHorizontal(props) {
       const findDetail = products.find(
         (product) => product.productUuid === productId
       )
-      //si no esta ya el producto ahi si se despacha
       if (
         findDetail &&
         (!detail || detail.productUuid !== findDetail.productUuid)
@@ -76,7 +73,6 @@ function CartItemHorizontal(props) {
         justifyContent: 'center',
         alignItems: 'center',
         border: '2px solid rgba(0, 0, 0, 0.6)',
-        // backgroundColor: 'rgba(128, 128, 128, 0.226)',
         boxShadow: '5px 5px 5px 0px rgba(5, 5, 5, 0.164)',
         marginBottom: '8px',
         padding: '10px',
@@ -96,7 +92,7 @@ function CartItemHorizontal(props) {
               flex: '1',
             }}
           >
-            <Typography variant="h4">{detail.fantasyName}</Typography>
+            <Typography variant="h4">{cleanName(detail.fantasyName)}</Typography>
             <Typography variant="h6">{detail.description}</Typography>
             <p> Price: ${total.toFixed(2)}</p>
             <div
