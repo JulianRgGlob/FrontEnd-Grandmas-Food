@@ -10,14 +10,23 @@ import Layout from '../Pages/Layout'
 import AdminHome from '../Pages/AdminHome'
 import initializeAdmins from '../api/InitializeLocalAdmin'
 import { useEffect } from 'react'
+import {useDispatch} from 'react-redux'
+import {initializeCart} from '../../stores/cartSlice'
 
 function App() {
-  
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    console.log("App.js");
-    
+    const userId = localStorage.getItem('loggedin')
+    if (userId) {
+      console.log('Initializing cart for userId:', userId);
+console.log('Loaded items from localStorage:', loadCartFromLocalStorage(userId));
+      dispatch(initializeCart({userId}))
+      console.log("App.js", userId);
+      
+    }  
     initializeAdmins()
-  }, [])
+  }, [dispatch])
 
   return (
     <>

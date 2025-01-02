@@ -18,6 +18,7 @@ import {
 } from '../../../stores/authSlice'
 import bcrypt from 'bcryptjs'
 import { setCartItems } from '../../../stores/cartSlice'
+import { use } from 'react'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -84,10 +85,12 @@ const Login = () => {
               role: loggedUser.role,
             })
           )
-
-          const cartKey = `cart-${loggedUser.id}`
-          const existingCart = JSON.parse(localStorage.getItem(cartKey)) || []
-          dispatch(setCartItems(existingCart))
+          const allCarts = JSON.parse(localStorage.getItem('allCarts')) || []
+          console.log('allCarts', allCarts);
+          
+          const userCart = allCarts.find((cart) => cart.userId === loggedUser.id)
+          console.log('userCart', userCart);
+          dispatch(setCartItems(userCart?.items || []))
 
           localStorage.setItem('loggedin', loggedUser.id)
           navigate('/')

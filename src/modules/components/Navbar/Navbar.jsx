@@ -39,7 +39,7 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('loggedin');
-    dispatch(clearCart());
+    // dispatch(clearCart());
     dispatch(setAnchorElUser(null));
     navigation('/login');
   };

@@ -18,9 +18,11 @@ function ReportSales() {
   }
   return (
     <BarChart
-      sx={{ padding: 1 }}
+      sx={{ padding: 1,[`.${axisClasses.left} .${axisClasses.label}`]: {
+        transform: 'translate(-20px, 0)',
+      },}}
       dataset={salesDataset}
-      yAxis={[{ scaleType: 'linear', label: 'Sales in $' , tickSize: 10,}]}
+      yAxis={[{ scaleType: 'linear', label: 'Sales in $' , tickSize: 5}]}
       series={[
         { dataKey: 'grilledChicken', label: 'Grilled Chicken', valueFormatter },
         { dataKey: 'spaghetti', label: 'Spaghetti' },
@@ -37,6 +39,7 @@ function ReportSales() {
         { dataKey: 'grilledSalmon', label: 'Grilled Salmon' },
       ]}
       layout="vertical"
+      margin={{ top: 100 }}
       {...chartSetting}
     />
   )

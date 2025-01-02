@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeQuanity } from '../../../stores/cartSlice'
+import { changeQuantity } from '../../../stores/cartSlice'
 import { setDetail } from '../../../stores/detailCartItemsSlice'
 import { CartItemButtom } from './CartItemButtom'
 import { StyledDivCart } from './Cart.style'
@@ -49,7 +49,7 @@ function CartItem(props) {
     }
 
     dispatch(
-      changeQuanity({
+      changeQuantity({
         productId: productId,
         quantity: quantity - 1,
         userId,
@@ -64,7 +64,7 @@ function CartItem(props) {
     }
 
     dispatch(
-      changeQuanity({
+      changeQuantity({
         productId: productId,
         quantity: quantity + 1,
         userId,

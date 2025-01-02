@@ -1,7 +1,17 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import { DataGrid } from '@mui/x-data-grid'
 import Typography from '@mui/material/Typography'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+  GridRowModes,
+  DataGrid,
+  GridToolbarContainer,
+  GridActionsCellItem,
+  GridRowEditStopReasons,
+} from '@mui/x-data-grid';
 
 function Dashboard() {
 
@@ -16,6 +26,8 @@ function Dashboard() {
             userUuid: user.id,
         }))
     }
+  const handleEditClick = () => () => {}
+  const handleDeleteClick = () => () => {}
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
@@ -35,6 +47,30 @@ function Dashboard() {
       headerName: 'Uuid',
       sortable: true,
       width: 400,
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: () => {
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick()}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick()}
+            color="inherit"
+          />,
+        ];
+      },
     },
   ]
 

@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeQuanity } from '../../../stores/cartSlice'
+import { changeQuantity } from '../../../stores/cartSlice'
 import { setDetail } from '../../../stores/detailCartItemsSlice'
 import { CartItemButtom } from '../CarT/CartItemButtom'
 import CardMedia from '@mui/material/CardMedia'
@@ -47,7 +47,7 @@ function CartItemHorizontal(props) {
     }
 
     dispatch(
-      changeQuanity({
+      changeQuantity({
         productId: productId,
         quantity: quantity - 1,
         userId,
@@ -61,7 +61,7 @@ function CartItemHorizontal(props) {
     }
     
     dispatch(
-      changeQuanity({
+      changeQuantity({
         productId: productId,
         quantity: quantity + 1,
         userId,
