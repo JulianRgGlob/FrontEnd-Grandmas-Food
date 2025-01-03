@@ -35,7 +35,7 @@ Follow these steps to install and run the project on your local machine:
    ```bash
    git clone https://github.com/JulianRgGlob/FrontEnd-Grandmas-Food.git
 
-    cd grandmas-food-frontend
+    cd FrontEnd-Grandmas-Food
 
     npm install
 
