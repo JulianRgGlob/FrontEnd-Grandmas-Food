@@ -64,7 +64,7 @@ const Login = () => {
               role: loggedAdmin.role,
             })
           )
-          localStorage.setItem('loggedin', loggedAdmin.id)
+          localStorage.setItem('adminLogged', loggedAdmin.id)
           navigate('/admin/dashboard') 
           return
         } else {

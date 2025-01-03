@@ -2,8 +2,8 @@ import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoutes = ({ isAdminRoute = false }) => {
-  const auth = localStorage.getItem('loggedin')
   
+  const auth = localStorage.getItem('loggedin')
   const usersData = localStorage.getItem('users')
   const adminsData = localStorage.getItem('admins')
   

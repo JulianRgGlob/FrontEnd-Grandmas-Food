@@ -47,7 +47,7 @@ const NAVIGATION = [
       },
       {
         segment: 'products',
-        title: 'Products',
+        title: 'Products List',
         icon: <DescriptionIcon />,
       },
     ],
@@ -60,8 +60,7 @@ const NAVIGATION = [
     title: 'Account',
   },
   {
-    segment: 'Account',
-    title: 'Account',
+    segment: 'account',
     icon: <PersonPinIcon />,
   },
 ]
@@ -93,13 +92,6 @@ function useDemoRouter(initialPath) {
 
   return router
 }
-
-const Skeleton = styled('div')(({ theme, height }) => ({
-  backgroundColor: theme.palette.action.hover,
-  borderRadius: theme.shape.borderRadius,
-  height,
-  content: '" "',
-}))
 
 export default function DashboardLayoutBasic(props) {
   const { window } = props

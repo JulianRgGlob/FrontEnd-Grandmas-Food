@@ -83,9 +83,6 @@ function ReportProducts() {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        Product Report
-      </Typography>
       <Button
         variant="contained"
         onClick={() => {
