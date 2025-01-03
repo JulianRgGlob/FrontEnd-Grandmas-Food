@@ -23,7 +23,6 @@ const Register = () => {
   const email = useSelector((state) => state.auth.email)
   const passwords = useSelector((state) => state.auth.passwords)
   const showPassword = useSelector((state) => state.auth.showPassword)
-  console.log('showPassword:', showPassword);
   
   const errors = useSelector((state) => state.auth.errors)
   const name = useSelector((state) => state.auth.nickName)

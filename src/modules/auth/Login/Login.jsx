@@ -72,19 +72,9 @@ const Login = () => {
           return
         }
       }
-      console.log('User:', loggedUser);
-      console.log('location', location.pathname);
-      console.log('loggedUser', loggedUser.role);
-    
+
       if (location.pathname === '/login' && loggedUser && loggedUser.role === 'user') {
         const isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
-        console.log('isMatch:', isMatch);
-        console.log('User set in Redux:', {
-          id: loggedUser.id,
-          name: loggedUser.name,
-          email: loggedUser.email,
-          role: loggedUser.role,
-        });
         if (isMatch) {
           dispatch(
             setUser({

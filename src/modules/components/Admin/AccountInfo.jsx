@@ -13,13 +13,9 @@ function AccountInfo() {
   const navigate = useNavigate()
   const admin = localStorage.getItem('admins')
   const adminId = localStorage.getItem('adminLogged')
-  console.log(adminId);
   
   const adminLog = JSON.parse(admin).find((admin) => admin.id === adminId)
 
-  console.log(admin)
-  console.log(adminId)
-  console.log(adminLog.name)
 
   const handleLogout = () => {
     localStorage.removeItem('adminLogged')

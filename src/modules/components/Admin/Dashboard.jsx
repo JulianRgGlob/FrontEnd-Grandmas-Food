@@ -13,7 +13,6 @@ function Dashboard() {
 
   useEffect(() => {
     const usersFromStorage = localStorage.getItem('users')
-    console.log('users', usersFromStorage)
 
     if (usersFromStorage) {
       const parsedUsers = JSON.parse(usersFromStorage).map((user, index) => ({

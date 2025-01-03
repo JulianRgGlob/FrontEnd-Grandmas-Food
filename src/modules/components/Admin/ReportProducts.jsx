@@ -48,7 +48,6 @@ function ReportProducts() {
     if (isEditing) {
       dispatch(updateProduct(currentProduct))
     } else {
-      console.log(addProduct)
       dispatch(
         addProduct({ ...currentProduct, productUuid: Date.now().toString() })
       )
@@ -86,7 +85,6 @@ function ReportProducts() {
       <Button
         variant="contained"
         onClick={() => {
-          console.log('click')
           dispatch(
             setCurrentProduct({
               productUuid: '',

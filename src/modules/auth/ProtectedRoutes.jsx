@@ -8,7 +8,6 @@ const ProtectedRoutes = ({ isAdminRoute = false }) => {
   const adminsData = localStorage.getItem('admins')
   
   let user = null
-  console.log('Auth ID:', auth);
   if (auth && (usersData || adminsData)) {
     try {
       if (isAdminRoute && adminsData) {
@@ -16,7 +15,6 @@ const ProtectedRoutes = ({ isAdminRoute = false }) => {
         user = admins.find((admin) => admin.id === auth)
       } else if (!isAdminRoute && usersData) {
         const users = JSON.parse(usersData)
-        console.log('users:', users);
         user = users.find((u) => u.id === auth)
       }
 

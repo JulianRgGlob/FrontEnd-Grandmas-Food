@@ -16,7 +16,6 @@ export const CardHorizontally = () => {
   const totalPrice = carts.reduce((total, cartItem) => {
     
     const product = products.find(product => product.productUuid === cartItem.productId); 
-    console.log('product', product);
     
     if (product) {
       return total + (product.price * cartItem.quantity);
