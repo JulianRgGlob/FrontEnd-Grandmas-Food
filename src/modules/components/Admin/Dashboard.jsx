@@ -5,42 +5,49 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUsers, updateUser, deleteUser } from '../../../stores/usersSlice'
 import { useEffect } from 'react'
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
+import { hash } from 'bcryptjs'
 
 function Dashboard() {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.users.users) 
-  
+  const users = useSelector((state) => state.users.users)
+
   useEffect(() => {
     const usersFromStorage = localStorage.getItem('users')
     console.log('users', usersFromStorage)
 
     if (usersFromStorage) {
       const parsedUsers = JSON.parse(usersFromStorage).map((user, index) => ({
-        id: index,
+        id: user.id,
         name: user.name,
         email: user.email,
         userUuid: user.id,
+        role: user.role,
+        hash: user.hash,
       }))
       dispatch(setUsers(parsedUsers))
     }
   }, [dispatch])
 
   const handleProcessRowUpdate = (newRow) => {
-    dispatch(updateUser(newRow))
+
+    const originalUser = users.find((user) => user.id === newRow.id)
+
+
+    const updatedUser = {
+      ...originalUser, 
+      ...newRow, 
+    }
+
+    dispatch(updateUser(updatedUser))
+
     localStorage.setItem(
       'users',
       JSON.stringify(
-        users.map((user) => (user.id === newRow.id ? newRow : user))
+        users.map((user) => (user.id === newRow.id ? updatedUser : user))
       )
     )
-    console.log('here',localStorage.setItem(
-      'users',
-      JSON.stringify(
-        users.map((user) => (user.id === newRow.id ? newRow : user))
-      )
-    ))
-    
-    return newRow
+
+    return updatedUser 
   }
 
   const handleDeleteClick = (id) => () => {
@@ -52,7 +59,7 @@ function Dashboard() {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 250 },
     {
       field: 'name',
       headerName: 'Name',
@@ -66,10 +73,10 @@ function Dashboard() {
       editable: true,
     },
     {
-      field: 'userUuid',
-      headerName: 'Uuid',
+      field: 'hash',
+      headerName: 'Hash',
       sortable: true,
-      width: 400,
+      width: 250,
     },
     {
       field: 'actions',

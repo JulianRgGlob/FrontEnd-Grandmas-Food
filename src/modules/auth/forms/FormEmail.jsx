@@ -21,6 +21,7 @@ const FormEmail = ({ email, errors }) => {
         label="Email"
         value={email}
         onChange={(e) => {
+          console.log('email',e.target.value)
           dispatch(setEmail(e.target.value))
           dispatch(setErrors({ ...errors, email: '' }))
         }}

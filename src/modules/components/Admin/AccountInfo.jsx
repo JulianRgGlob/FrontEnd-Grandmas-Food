@@ -15,11 +15,11 @@ function AccountInfo() {
   const adminId = localStorage.getItem('adminLogged')
   console.log(adminId);
   
-  const adminLogged = JSON.parse(admin).find((admin) => admin.id === adminId)
+  const adminLog = JSON.parse(admin).find((admin) => admin.id === adminId)
 
   console.log(admin)
   console.log(adminId)
-  console.log(adminLogged.name)
+  console.log(adminLog.name)
 
   const handleLogout = () => {
     localStorage.removeItem('adminLogged')
@@ -51,7 +51,7 @@ function AccountInfo() {
               component="div"
               sx={{ textAlign: 'center' }}
             >
-              Email : {adminLogged.email}
+              Email : {adminLog.email}
             </Typography>
             <Typography
               variant="h6"
@@ -59,7 +59,7 @@ function AccountInfo() {
               component="div"
               sx={{ textAlign: 'center' }}
             >
-              Role : {adminLogged.role}
+              Role : {adminLog.role}
             </Typography>
             <Typography
               variant="h6"
@@ -67,7 +67,7 @@ function AccountInfo() {
               component="div"
               sx={{ textAlign: 'center' }}
             >
-              Name : {adminLogged.name}
+              Name : {adminLog.name}
             </Typography>
           </CardContent>
         </CardActionArea>

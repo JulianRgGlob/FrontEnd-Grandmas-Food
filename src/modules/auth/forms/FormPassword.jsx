@@ -26,6 +26,7 @@ export const FormPassword = ({errors,showPassword,passwords,handleClickShowPassw
         type={showPassword ? 'text' : 'password'}
         value={passwords}
         onChange={(e) => {
+          console.log('password',e.target.value)
           dispatch(setPassword(e.target.value))
           dispatch(setErrors({ ...errors, password: '' }))
         }}

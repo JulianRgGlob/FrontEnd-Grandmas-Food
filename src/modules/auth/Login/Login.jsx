@@ -47,15 +47,15 @@ const Login = () => {
 
       const loggedUser = users.find((user) => user.email === email)
       const loggedAdmin = admins.find((admin) => admin.email === email)
-
+      
       if (!loggedUser && !loggedAdmin) {
         dispatch(setErrorMessage('User not found'))
         return
       }
 
       if (location.pathname === '/admin/verify' && loggedAdmin && loggedAdmin.role === 'admin') {
-        let isMatch = passwords == loggedAdmin.password
-        if (isMatch) {
+        const isMatch = passwords == loggedAdmin.password
+        if (isMatch) {          
           dispatch(
             setUser({
               id: loggedAdmin.id,
@@ -72,9 +72,19 @@ const Login = () => {
           return
         }
       }
-
+      console.log('User:', loggedUser);
+      console.log('location', location.pathname);
+      console.log('loggedUser', loggedUser.role);
+    
       if (location.pathname === '/login' && loggedUser && loggedUser.role === 'user') {
-        let isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
+        const isMatch = bcrypt.compareSync(passwords, loggedUser.hash)
+        console.log('isMatch:', isMatch);
+        console.log('User set in Redux:', {
+          id: loggedUser.id,
+          name: loggedUser.name,
+          email: loggedUser.email,
+          role: loggedUser.role,
+        });
         if (isMatch) {
           dispatch(
             setUser({
@@ -124,7 +134,7 @@ const Login = () => {
         {errorMessage && (
           <div style={{ color: 'red', marginTop: '5px' }}>{errorMessage}</div>
         )}
-        <Button variant="contained" type="submit" sx={{ marginTop: 2 , backgroundColor:'#3A7CA5', color:'#000000'}}>
+        <Button variant="contained" type='submit' sx={{ marginTop: 2 , backgroundColor:'#3A7CA5', color:'#000000'}}>
           Login
         </Button>
         <StyledBox />
